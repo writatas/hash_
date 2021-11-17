@@ -1,0 +1,30 @@
+{
+  "name": "hash_rpg",
+  "version": "1.0.0",
+  "description": "A post-apocalyptic rpg and resource management game. How long can you survive?",
+  "main": "server.js",
+  "scripts": {
+    "start": "node -r dotenv/config server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/writatas/Hash_rpg.git"
+  },
+  "keywords": [
+    "['rpg'",
+    "'game'",
+    "'hobby']"
+  ],
+  "author": "Writatas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/writatas/Hash_rpg/issues"
+  },
+  "homepage": "https://github.com/writatas/Hash_rpg#readme",
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
