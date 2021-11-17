@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const {port} = require('./config')
-
+app.use('/modules',express.static(__dirname + '/modules'))
 app.use('/Public',express.static(__dirname + '/Public'))
 
 app.get('/',(req,res)=>{

@@ -193,4 +193,4 @@ const Game = (hero,level) => (function(hero_name,starting_level){
     return ENVIRONMENT()
 })(hero,level)
 
-module.exports = Game
+export {Game}

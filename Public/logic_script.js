@@ -1,12 +1,11 @@
-const init_objs = require("../modules/game_objects")
-const genterate_html = require("../modules/html_generator")
-
+import {Game} from "../modules/game_objects"
+//import {HTML_Generate_Objects} from "../modules/html_generator"
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
   }
 const BEGIN_LOGIC = async function (string){
     let rate = 200
-    let {session,player,ques,clock,enemy_que} = init_objs(string,1)
+    let {session,player,ques,clock,enemy_que} = Game(string,1)
     while (clock > 0 && player.weight.equiped_weight > 0){
         try{
             await delay(rate)
@@ -24,7 +23,7 @@ const BEGIN_LOGIC = async function (string){
         } else if (clock <= 1){
             player.level +=1,
             clock = 300,
-            ques = init_objs(string,player.level).ques,
+            ques = Game(string,player.level).ques,
             rate -= 10
         }
 
@@ -48,5 +47,4 @@ const BEGIN_LOGIC = async function (string){
                     )
     }
 }
-
 BEGIN_LOGIC("test_hero")
