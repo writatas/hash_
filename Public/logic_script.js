@@ -16,7 +16,7 @@ const BEGIN_LOGIC = async function (string){
         : next_q.type === "KOMPONENT" && player.inventory.length < player.level + 1 ? (player.inventory.push(next_q), next_q = ques.next().value)
         : next_q.type === "KOMPONENT" && player.inventory.length === player.level + 1 ? (player.parts += Math.floor((next_q.cost)/100),  next_q = ques.next().value)
         : next_q.type === "TEXT_ENCOUNTER" ? (player.encounters.set("Time: " + clock,next_q),  next_q = ques.next().value)
-        : console.log("Game statistics/over")
+        : console.log("Game over")
 
         if(player.weight.equiped_weight <= 0){
             clock = 0
