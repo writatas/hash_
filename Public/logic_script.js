@@ -1,4 +1,4 @@
-import {Game} from "../modules/game_objects"
+import {Game} from "../modules/game_objects.js"
 //import {HTML_Generate_Objects} from "../modules/html_generator"
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
