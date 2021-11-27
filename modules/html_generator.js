@@ -12,4 +12,4 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     return generate_array
 })(...arr)
 
-module.exports = HTML_Generate_Objects
+export {HTML_Generate_Objects}

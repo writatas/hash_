@@ -1,5 +1,5 @@
 import {Game} from "../modules/game_objects.js"
-//import {HTML_Generate_Objects} from "../modules/html_generator"
+import {HTML_Generate_Objects} from "../modules/html_generator.js"
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
   }
@@ -33,10 +33,10 @@ const BEGIN_LOGIC = async function (string){
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
         console.clear()
         console.log(
-                    "\ntestHTMLGenerator    :",genterate_html(session,player),
+                    "\ntestHTMLGenerator    :",HTML_Generate_Objects(session,player),
                     "\nSession              :",session,
                     "\nInventory            : ",player.inventory.length,
-                    "\nText Encounters      : ",player.encounters.size,
+                   // "\nText Encounters      : ",player.encounters.size,
                     "\nClock                : ",clock,
                     "\nEnemies              :",enemy_que.length,
                     "\nHealth recent Enemy  :",enemy_que[enemy_que.length - 1],

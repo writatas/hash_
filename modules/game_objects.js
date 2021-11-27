@@ -2,7 +2,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
     let level = starting_level
     let hero = hero_name //private variable
     const USER = () =>{
-        this.interface = {
+        return {
             level       : 1,
             name        : hero_name,
             type        : "USER",
@@ -57,10 +57,10 @@ const Game = (hero,level) => (function(hero_name,starting_level){
               : this.equiped[rando_choice].weight -= d
             }
         }
-        return this.interface
     }
     const KOMPONENT = (name,level,h) => {
-        const k_name = {
+        let k_name
+        k_name = {
             typed_name:name,
             make_id:(length)=>{
                 let [result,characters] = [
@@ -73,8 +73,8 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                 }
                 return result;
             }
-        },
-        this.interface = {
+        }
+        return {
             type            : "KOMPONENT",
             komponent_name  : [k_name.typed_name,k_name.make_id(5)],
             level           : level,
@@ -95,13 +95,12 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                 console.log(message) //debugging
             }
         }
-        return this.interface
     }
     const ENEMIES = (min_health, max_health, min_p, max_p, attack_rate) => {
         const rando = (min,max) => {
             return Math.floor(Math.random() * ((max - min + 1)+ min))
         }
-        this.enemy = {
+        return {
             type        : "ENEMIES",
             health      : rando(min_health,max_health) + 5,
             perception  : rando(min_p,max_p),
@@ -130,10 +129,9 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                 }
             }
         }
-        return this.enemy
     }
     const TEXT_ENCOUNTER = () =>{ //returns a string
-        this.texts = [
+        const texts = [
             "You knocked over a rock and it fell down a drain...",
             "A crazed but harmless Automaton picks a flower from a patch of grass, then stares at you passing by...",
             "A large structure of destroyed rubble blocked your way. You found a way to get around it...",
@@ -146,10 +144,10 @@ const Game = (hero,level) => (function(hero_name,starting_level){
             "In the midst of an alcove a deer with three horns is feasting on a brush of long grass...",
           ]
         let text = () =>{
-          let n_length = this.texts.length
+          let n_length = texts.length
           return {
               type:"TEXT_ENCOUNTER",
-              text:this.texts[Math.floor(Math.random() * n_length)]}
+              text:texts[Math.floor(Math.random() * n_length)]}
         }
         return text()
     }

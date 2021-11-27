@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "A post-apocalyptic rpg and resource management game. How long can you survive?",
   "main": "server.js",
+  "type":"module",
   "scripts": {
-    "start": "node -r dotenv/config server.js"
+    "start": "node -r dotenv/config server.cjs"
   },
   "repository": {
     "type": "git",
