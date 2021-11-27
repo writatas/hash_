@@ -2,7 +2,7 @@
   "name": "hash_rpg",
   "version": "1.0.0",
   "description": "A post-apocalyptic rpg and resource management game. How long can you survive?",
-  "main": "server.js",
+  "main": "server.cjs",
   "type":"module",
   "scripts": {
     "start": "node -r dotenv/config server.cjs"

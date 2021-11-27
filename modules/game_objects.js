@@ -50,6 +50,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
               let d_check = this.equiped[rando_choice].weight -= d
         
               d_check <= 0 ? (
+                //!!this console.log needs to be rendered in html somehow
                 console.log("\x1b[33m",`\n(line 50)  ${this.equiped[rando_choice].komponent_name[0]} destroyed!\n`),
                 this.equiped.splice(rando_choice,1),
                 console.log("\x1b[35m",`Komponents left ${this.equiped.length}\n`)
@@ -116,10 +117,12 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                 let attack = ()=>{
                     player._ouch = Math.floor(this.perception * .25 + 1)
                     if(player.weight.equiped_weight <= 0 || player.equiped.length === 0){
+                        //!!this console.log needs to be rendered in html somehow
                         console.log("\x1b[32m","Enemy attack was cleared nicely! Add to the leader board and restart game.")
                         console.log(player.name, "Is dead...")
                         dead_or_alive()
                     } else {
+                        //!!this console.log needs to be rendered in html somehow
                         console.log(player.weight)
                     }
                 }

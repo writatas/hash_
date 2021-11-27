@@ -4,7 +4,7 @@ const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
   }
 const BEGIN_LOGIC = async function (string){
-    let rate = 200
+    let rate = 2000
     let {session,player,ques,clock,enemy_que} = Game(string,1)
     while (clock > 0 && player.weight.equiped_weight > 0){
         try{
@@ -28,21 +28,20 @@ const BEGIN_LOGIC = async function (string){
         }
 
 
-        //Generate HTML, probably need to use workers in the html
+        //Generate HTML and render it, use service workers and Mutations observers to affect background graphics and combat.
 
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
-        console.clear()
         console.log(
                     "\ntestHTMLGenerator    :",HTML_Generate_Objects(session,player),
-                    "\nSession              :",session,
-                    "\nInventory            : ",player.inventory.length,
-                   // "\nText Encounters      : ",player.encounters.size,
-                    "\nClock                : ",clock,
-                    "\nEnemies              :",enemy_que.length,
-                    "\nHealth recent Enemy  :",enemy_que[enemy_que.length - 1],
-                    "\nPlayer weight        :",player.weight,
-                    "\nPlayer level         :",player.level,
-                    "\nParts                :",player.parts,
+                    //"\nSession              :",session,
+                    //"\nInventory            : ",player.inventory.length,
+                    //"\nText Encounters      : ",player.encounters.size,
+                    //"\nClock                : ",clock,
+                    //"\nEnemies              :",enemy_que.length,
+                    //"\nHealth recent Enemy  :",enemy_que[enemy_que.length - 1],
+                    //"\nPlayer weight        :",player.weight,
+                    //"\nPlayer level         :",player.level,
+                    //"\nParts                :",player.parts,
                     "\nTime Rate            :",rate
                     )
     }

@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const {port} = require('./config')
+const {port} = require('./config.cjs')
 
 app.use('/modules',express.static(__dirname + '/modules'))
 app.use('/Public',express.static(__dirname + '/Public'))
