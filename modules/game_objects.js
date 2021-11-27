@@ -60,7 +60,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
         return this.interface
     }
     const KOMPONENT = (name,level,h) => {
-        this.k_name = {
+        const k_name = {
             typed_name:name,
             make_id:(length)=>{
                 let [result,characters] = [
@@ -76,7 +76,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
         },
         this.interface = {
             type            : "KOMPONENT",
-            komponent_name  : [this.k_name.typed_name,this.k_name.make_id(5)],
+            komponent_name  : [k_name.typed_name,k_name.make_id(5)],
             level           : level,
             weight          : (level + h) * level,
             attachments     : [],
