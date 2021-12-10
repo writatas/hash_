@@ -29,14 +29,13 @@ const BEGIN_LOGIC = async function (string){
 
 
         //Generate HTML and render it.
-        await HTML_Generate_Objects(player,enemy_que,clock)
+        //await HTML_Generate_Objects(player,enemy_que,clock)
 
         //Check for enemies and handle combat with combat.js
 
         
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
         console.log(
-                    //"\ntestHTMLGenerator    :",HTML_Generate_Objects(session,player),
                     //"\nSession              :",session,
                     //"\nInventory            : ",player.inventory.length,
                     //"\nText Encounters      : ",player.encounters.size,
@@ -47,6 +46,7 @@ const BEGIN_LOGIC = async function (string){
                     //"\nPlayer level         :",player.level,
                     //"\nParts                :",player.parts,
                     //"\nTime Rate            :",rate
+                    player.hash_name
                     )
     }
 }
