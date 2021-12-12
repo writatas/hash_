@@ -44,6 +44,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         //PLAYER_INVENTORY
         inventory_management        = document.createElement("div")
         //equiped items - f
+
             equiped_items           = document.createElement("div") , equiped_items.id = "equiped_items"
             //equiped items per element in array structure
             //type: [string]
@@ -100,10 +101,10 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         inventory_management.appendChild(encounters)
         inventory_management.style.width = "100%"
 
-        player_node.appendChild(player_info,inventory_management)
+        player_node.appendChild(player_info)
         player_node.appendChild(inventory_management)
         
-        document.body.appendChild(player_node)
+        document.body.appendChild(player_node) //append all generated html
 
     } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
 
@@ -122,6 +123,32 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             //encounters
                 //do not really need to be updated, rather information should be appended.
 
+        let weightID,
+        nameID,
+        levelID,
+        partsID,
+
+        equiped_itemsID,
+        inventoryID,
+        encountersID
+
+        weightID                         = document.getElementById("weight")
+        nameID                           = document.getElementById("name")
+        levelID                          = document.getElementById("level")
+        partsID                          = document.getElementById("parts")
+
+        equiped_itemsID                  = document.getElementById("equiped_items")
+        inventoryID                      = document.getElementById("inventory")
+        encountersID                     = document.getElementById("encounters")
+
+
+        //update variables regardless if values are the same - will change if it would make things faster but im unsure if it does
+        weightID.innerText               = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
+        nameID.innerText                 = player.hash_name //might not need this
+        levelID.innerText                = player.level
+        partsID                          = player.parts
+
+        //for equiped_items,inventory,and encounters, updated values need to be checked with running object.
 
     }
 
