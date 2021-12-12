@@ -35,7 +35,10 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             parts                   = document.createElement("p") , parts.id = "parts"
             parts.innerText         = player.parts
 
-        player_info.append(weight,name,level,parts)
+        player_info.appendChild(weight)
+        player_info.appendChild(name)
+        player_info.appendChild(level)
+        player_info.appendChild(parts)
             player_info.style.width = "100%"
         
         //PLAYER_INVENTORY
@@ -92,9 +95,13 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             
 
         inventory_management.append(equiped_items,inventory,encounters)
+        inventory_management.appendChild(equiped_items)
+        inventory_management.appendChild(inventory)
+        inventory_management.appendChild(encounters)
         inventory_management.style.width = "100%"
 
-        player_node.append(player_info,inventory_management)
+        player_node.appendChild(player_info,inventory_management)
+        player_node.appendChild(inventory_management)
         
         document.body.appendChild(player_node)
 
@@ -114,7 +121,6 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
                 //inventory items change, therefore they need to be accurate to the running inventory object
             //encounters
                 //do not really need to be updated, rather information should be appended.
-
 
 
     }
