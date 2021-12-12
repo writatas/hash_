@@ -15,7 +15,7 @@ const BEGIN_LOGIC = async function (string){
         next_q.type === "ENEMIES" ? enemy_que.push(next_q)
         : next_q.type === "KOMPONENT" && player.inventory.length < player.level + 1 ? (player.inventory.push(next_q), next_q = ques.next().value)
         : next_q.type === "KOMPONENT" && player.inventory.length === player.level + 1 ? (player.parts += Math.floor((next_q.cost)/100),  next_q = ques.next().value)
-        : next_q.type === "TEXT_ENCOUNTER" ? (player.encounters.set("Time: " + clock,next_q),  next_q = ques.next().value)
+        : next_q.type === "TEXT_ENCOUNTER" ? (player.encounters.set(`${player.level}-T` + clock,next_q),  next_q = ques.next().value) //essentially creates a time-code for text encounter
         : console.log("Game over")
 
         if(player.weight.equiped_weight <= 0){
@@ -46,7 +46,8 @@ const BEGIN_LOGIC = async function (string){
                     //"\nPlayer level         :",player.level,
                     //"\nParts                :",player.parts,
                     //"\nTime Rate            :",rate
-                    player.hash_name
+                    //player.parts
+                    player.encounters
                     )
     }
 }

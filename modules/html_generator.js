@@ -6,43 +6,120 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
 
     let nodes = document.getElementById("playing-field").childNodes
     if(nodes.length === 0){ //if the nodes in the playing field empty create a new playing field, otherwise update information
-        //PLAYER:
+    //PLAYER:
         let player_node,
-        name,level,
+        player_info,
+        inventory_management,
+        name,
+        level,
         weight,
+        parts,
         equiped_items,
         inventory,
         encounters
 
-        player_node = document.createElement("div")
-        player_node.id = player.type
+        player_node                 = document.createElement("div")
+            player_node.id          = player.type
+        //PLAYER_INFO
+        player_info                 = document.createElement("div") //player info will be the draggable header as it will be at the top
         //weight
-            weight = document.createElement("p") , weight.id = "player_weight"
-            weight.innerText = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
+            weight                  = document.createElement("p") , weight.id = "weight"
+            weight.innerText        = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
         //name
-            name = document.createElement("p") , name.id = "player_name"
-            name.innerHTML = player.hash_name
+            name                    = document.createElement("p") , name.id = "name"
+            name.innerHTML          = player.hash_name
         //level
-            level = document.createElement("p") , level.id = "player_level"
-            level.innerText = player.level
-        ////DIV NEEDS TO SEPERATE THIS SECTION OF PLAYER NODE WITHIN THE PLAYER_NODE////
-        //equiped items - f
-            equiped_items = document.createElement("ol") , equiped_items.id = "player_equiped_items"
-        //inventory - f
-            inventory = document.createElement("ol") , inventory.id = "player_inventory"
-        //encounters -f
-            encounters = document.createElement("ol") , encounters.id = "player_encounters"
-    } else {
-        /*
-        The value of objects passed to this function are compared to the value of
-        renderd html elements who will have corresponding id's to object 'type'
-        */
-        nodes.forEach(n=>{
+            level                   = document.createElement("p") , level.id = "level"
+            level.innerText         = player.level
+        //parts
+            parts                   = document.createElement("p") , parts.id = "parts"
+            parts.innerText         = player.parts
 
-        })
+        player_info.append(weight,name,level,parts)
+            player_info.style.width = "100%"
+        
+        //PLAYER_INVENTORY
+        inventory_management        = document.createElement("div")
+        //equiped items - f
+            equiped_items           = document.createElement("div") , equiped_items.id = "equiped_items"
+            //equiped items per element in array structure
+            //type: [string]
+            //komponent_name: [array with two elements ('Name','hash')] - will use the second element for element type.
+            //weight: [number]
+            //attachments: [array]
+            //cost: [getter]
+            //_attach [setter]
+            if(player.equiped.length === 0) {
+                equiped_items.innerText = `Pretty much dead`
+            } else {
+                player.equiped.forEach(k=>{
+                    const {type,komponent_name,weight,attachments} = k
+                    let txt_el          = document.createElement("p")
+                    txt_el.id           = komponent_name[1]
+                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+    
+                    equiped_items.appendChild(txt_el)
+                })
+            }
+        
+        //inventory - f
+            inventory               = document.createElement("div") , inventory.id = "inventory"
+
+            if(player.inventory.length === 0){
+                inventory.innerText = `Nothing in inventory...`
+            } else {
+                player.inventory.forEach(i=>{
+                    const {type,komponent_name,weight} = i
+                    let txt_el          = document.createElement("p")
+                    txt_el.id           = komponent_name[1]
+                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
+                    
+                    inventory.appendChild(txt_el)
+                })
+            }
+        //encounters -f
+            encounters                  = document.createElement("ul") , encounters.id = "encounters"
+            if(player.encounters.size() === 0){
+                encounters.innerText = `No visual encounters...`
+            } else {
+                for (const [key,value] of player.encounters){
+                    let li              = document.createElement("li")
+                    li.id               = key
+                    li.innerText        = `${key} : ${value}`
+                    encounters.appendChild(li)
+                }
+            }
+            
+
+        inventory_management.append(equiped_items,inventory,encounters)
+        inventory_management.style.width = "100%"
+
+        player_node.append(player_info,inventory_management)
+        
+        document.body.appendChild(player_node)
+
+    } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
+
+        //IDS to check against
+            //player weight
+            //name
+            //level
+            //parts
+
+            //equiped_items
+                //komponent names (loop if comparisons)
+                //The weight and attachment number needs to be updated if different
+            //inventory
+                //inventory komponent names (loop if comparisons)
+                //inventory items change, therefore they need to be accurate to the running inventory object
+            //encounters
+                //do not really need to be updated, rather information should be appended.
+
+
+
     }
 
-    console.log(player)
+    //console.log(player)
     
 
     
