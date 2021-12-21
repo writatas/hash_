@@ -3,9 +3,18 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     //render
     const  [player,enemy_que,clock] = [...arr]
     //create all of the necessary html elements if they don't already exist, check type
-
-    let nodes = document.getElementById("playing-field").childNodes
-    if(nodes.length === 0){ //if the nodes in the playing field empty create a new playing field, otherwise update information
+    let pn, w, n, l, p, eq, inv, enc
+    pn = document.getElementById("USER")
+    w = document.getElementById("weight")
+    n = document.getElementById("name")
+    l = document.getElementById("level")
+    p = document.getElementById("parts")
+    eq = document.getElementById("equiped_items")
+    inv = document.getElementById("inventory")
+    enc = document.getElementById("encounters")
+    const checks = [pn,w,n,l,p,eq,inv,enc]
+    const checkif_null = v=>v===null
+    if(checks.every(checkif_null) === true){ //if the nodes in the playing field empty create a new playing field, otherwise update information
     //PLAYER:
         let player_node,
         player_info,
@@ -18,8 +27,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         inventory,
         encounters
 
-        player_node                 = document.createElement("div")
-            player_node.id          = player.type
+        player_node                 = document.createElement("div") , player_node.id = player.type
         //PLAYER_INFO
         player_info                 = document.createElement("div") //player info will be the draggable header as it will be at the top
         //weight
@@ -53,47 +61,10 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             //attachments: [array]
             //cost: [getter]
             //_attach [setter]
-            if(player.equiped.length === 0) {
-                equiped_items.innerText = `Pretty much dead`
-            } else {
-                player.equiped.forEach(k=>{
-                    const {type,komponent_name,weight,attachments} = k
-                    let txt_el          = document.createElement("p")
-                    txt_el.id           = komponent_name[1]
-                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
-    
-                    equiped_items.appendChild(txt_el)
-                })
-            }
-        
         //inventory - f
             inventory               = document.createElement("div") , inventory.id = "inventory"
-
-            if(player.inventory.length === 0){
-                inventory.innerText = `Nothing in inventory...`
-            } else {
-                player.inventory.forEach(i=>{
-                    const {type,komponent_name,weight} = i
-                    let txt_el          = document.createElement("p")
-                    txt_el.id           = komponent_name[1]
-                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
-                    
-                    inventory.appendChild(txt_el)
-                })
-            }
         //encounters -f
             encounters                  = document.createElement("ul") , encounters.id = "encounters"
-            if(player.encounters.size() === 0){
-                encounters.innerText = `No visual encounters...`
-            } else {
-                for (const [key,value] of player.encounters){
-                    let li              = document.createElement("li")
-                    li.id               = key
-                    li.innerText        = `${key} : ${value}`
-                    encounters.appendChild(li)
-                }
-            }
-            
 
         inventory_management.append(equiped_items,inventory,encounters)
         inventory_management.appendChild(equiped_items)
@@ -104,8 +75,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         player_node.appendChild(player_info)
         player_node.appendChild(inventory_management)
         
-        document.body.appendChild(player_node) //append all generated html
-
+        document.getElementById("playing_field").appendChild(player_node)
     } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
 
         //IDS to check against
@@ -123,41 +93,78 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             //encounters
                 //do not really need to be updated, rather information should be appended.
 
-        let weightID,
-        nameID,
-        levelID,
-        partsID,
+        //let weightID,
+        //nameID,
+        //levelID,
+        //partsID,
 
-        equiped_itemsID,
-        inventoryID,
-        encountersID
+        //equiped_itemsID,
+        //inventoryID,
+        //encountersID
 
-        weightID                         = document.getElementById("weight")
-        nameID                           = document.getElementById("name")
-        levelID                          = document.getElementById("level")
-        partsID                          = document.getElementById("parts")
+        //weightID                         = document.getElementById("weight")
+        //nameID                           = document.getElementById("name")
+        //levelID                          = document.getElementById("level")
+        //partsID                          = document.getElementById("parts")
 
-        equiped_itemsID                  = document.getElementById("equiped_items")
-        inventoryID                      = document.getElementById("inventory")
-        encountersID                     = document.getElementById("encounters")
+        //equiped_itemsID                  = document.getElementById("equiped_items")
+        //inventoryID                      = document.getElementById("inventory")
+        //encountersID                     = document.getElementById("encounters")
 
 
-        //update variables regardless if values are the same - will change if it would make things faster but im unsure if it does
-        weightID.innerText               = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
-        nameID.innerText                 = player.hash_name //might not need this
-        levelID.innerText                = player.level
-        partsID                          = player.parts
+        //update variables if they are different (variables such as wieght change constantly so they are updated every iteration)
+        document.getElementById("weight").innerText               = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
+        player.level == document.getElementById("level").innerText ? "" :document.getElementById("level").innerText = player.level
+        player.parts == document.getElementById("parts").innerText ? "" :document.getElementById("parts").innerText = player.parts
+        //Encounters
 
-        //for equiped_items,inventory,and encounters, updated values need to be checked with running object.
+        const last_child_id = document.getElementById("encounters").value
+        const last_encounter_id = Object.keys(player.encounters)[Object.keys(player.encounters).length - 1]
+        if(last_child_id !== null && player.encounters.length > 0){
+            let li              = document.createElement("li")
+            li.id               = last_encounter_id
+            li.innerText        = `${last_encounter_id} : ${player.encounters[last_encounter_id].text}`
+            document.getElementById("encounters").appendChild(li)
+        }
+
+        //Inventory - remove element if it does not match running process
+        const inv_children = Object.values(document.getElementById("inventory").children)
+        console.log("inven")
+        inv_children.forEach(c=>{
+            player.inventory.forEach(i=>{
+                const {type,komponent_name,weight} = i
+                if(c.id === komponent_name[1]){
+                    document.getElementById(c.id).innerText = `${type}-->${komponent_name[1]} : weight-${weight}`
+                } else {
+                    document.getElementById(c.id).remove()
+                    let txt_el          = document.createElement("p")
+                    txt_el.id           = komponent_name[1] + "I"
+                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
+                    document.getElementById("level").appendChild(txt_el)
+                }
+            })
+        })
+            //equiped items
+            const equiped_children = Object.values(document.getElementById("equiped_items").children)
+            equiped_children.forEach(c=>{
+            player.equiped.forEach(k=>{
+                const {type,komponent_name,weight,attachments} = k
+                if(c.id === komponent_name[1] + "E"){
+                    document.getElementById(c.id).innerText = `${type}-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+                } else {
+                    document.getElementById(c.id).remove()
+                    let txt_el          = document.createElement("p")
+                    txt_el.id           = komponent_name[1] + "E"
+                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+    
+                    document.getElementById("equiped_items").appendChild(txt_el)
+                }
+            })
+        })
 
     }
 
     //console.log(player)
-    
-
-    
-
-
 })(...arr)
 
 

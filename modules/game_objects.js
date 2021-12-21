@@ -6,7 +6,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
             level       : 1,
             name        : hero_name,
             type        : "USER",
-            encounters  : new Map(),
+            encounters  : {},
             parts       : 0,
             inventory   : [],
             equiped     : [
