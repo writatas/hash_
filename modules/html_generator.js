@@ -64,7 +64,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         //inventory - f
             inventory               = document.createElement("div") , inventory.id = "inventory"
         //encounters -f
-            encounters                  = document.createElement("ul") , encounters.id = "encounters"
+            encounters              = document.createElement("ul") , encounters.id = "encounters"
 
         inventory_management.append(equiped_items,inventory,encounters)
         inventory_management.appendChild(equiped_items)
@@ -118,32 +118,40 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         player.parts == document.getElementById("parts").innerText ? "" :document.getElementById("parts").innerText = player.parts
         //Encounters
 
-        const last_child_id = document.getElementById("encounters").value
-        const last_encounter_id = Object.keys(player.encounters)[Object.keys(player.encounters).length - 1]
-        if(last_child_id !== null && player.encounters.length > 0){
+        let last_encounter_id = Object.keys(player.encounters)[Object.keys(player.encounters).length - 1]
+        console.log(last_encounter_id) // where the duplication is happening!!
+        //console.log(player.encounters[last_encounter_id])
+        //console.log(Object.keys(player.encounters).length)
+        let encounter_length = Object.keys(player.encounters).length
+        if(encounter_length > 0){
             let li              = document.createElement("li")
             li.id               = last_encounter_id
             li.innerText        = `${last_encounter_id} : ${player.encounters[last_encounter_id].text}`
             document.getElementById("encounters").appendChild(li)
+        } else {
+            console.log("if statement is not working!")
         }
 
         //Inventory - remove element if it does not match running process
         const inv_children = Object.values(document.getElementById("inventory").children)
-        console.log("inven")
-        inv_children.forEach(c=>{
-            player.inventory.forEach(i=>{
-                const {type,komponent_name,weight} = i
-                if(c.id === komponent_name[1]){
-                    document.getElementById(c.id).innerText = `${type}-->${komponent_name[1]} : weight-${weight}`
-                } else {
-                    document.getElementById(c.id).remove()
-                    let txt_el          = document.createElement("p")
-                    txt_el.id           = komponent_name[1] + "I"
-                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
-                    document.getElementById("level").appendChild(txt_el)
-                }
+        let inv_length = inv_children.length
+        let pinv_length = player.encounters.length
+        if (inv_length > 0 && pinv_length > 0){
+            inv_children.forEach(c=>{
+                player.inventory.forEach(i=>{
+                    const {type,komponent_name,weight} = i
+                    if(c.id === komponent_name[1]){
+                        document.getElementById(c.id).innerText = `${type}-->${komponent_name[1]} : weight-${weight}`
+                    } else {
+                        document.getElementById(c.id).remove()
+                        let txt_el          = document.createElement("p")
+                        txt_el.id           = komponent_name[1] + "I"
+                        txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
+                        document.getElementById("level").appendChild(txt_el)
+                    }
+                })
             })
-        })
+        }
             //equiped items
             const equiped_children = Object.values(document.getElementById("equiped_items").children)
             equiped_children.forEach(c=>{
