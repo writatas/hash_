@@ -48,7 +48,7 @@ const BEGIN_LOGIC = async function (string){
                     //"\nTime Rate            :",rate
                     //player.parts
                     //player.weight
-                    //player.inventory
+                    //player
                     )
     }
 }

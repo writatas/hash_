@@ -96,8 +96,8 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
 
         //update variables if they are different (variables such as wieght change constantly so they are updated every iteration)
         document.getElementById("weight").innerText               = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
-        player.level == document.getElementById("level").innerText ? "" :document.getElementById("level").innerText = player.level
-        player.parts == document.getElementById("parts").innerText ? "" :document.getElementById("parts").innerText = player.parts
+        player.level == document.getElementById("level").innerText ? "" :document.getElementById("level").innerText = `Level: ${player.level}`
+        player.parts == document.getElementById("parts").innerText ? "" :document.getElementById("parts").innerText = `Parts: ${player.parts}`
         
         //TEXT ENCOUNTERS
         let last_encounter_id = Object.keys(player.encounters)[Object.keys(player.encounters).length - 1]
@@ -114,41 +114,42 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
 
         //INVENTORY - remove element if it does not match running process
         const inv_children = Object.values(document.getElementById("inventory").children)
-        let inv_length = inv_children.length
-        let pinv_length = player.inventory.length
-        console.log(inv_length,pinv_length)
+        const inv_length = inv_children.length
+        const pinv_length = player.inventory.length
+        player.inventory.map(i=>console.log(i.komponent_name[1]))
         if (inv_length < pinv_length){
-                player.inventory.forEach(i=>{
-                    const {type,komponent_name,weight} = i
-                    if(inHTML(komponent_name[1] + "I") === true){
-                        document.getElementById(c.id).innerText = `${type}-->${komponent_name[1]} : weight-${weight}`
-                    } else {
-                        document.getElementById(c.id).remove()
-                        let txt_el          = document.createElement("p")
-                        txt_el.id           = komponent_name[1] + "I"
-                        txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
-                        document.getElementById("level").appendChild(txt_el)
-                    }
-                })
-        }
-            //equiped items
-            const equiped_children = Object.values(document.getElementById("equiped_items").children)
-            equiped_children.forEach(c=>{
-            player.equiped.forEach(k=>{
-                const {type,komponent_name,weight,attachments} = k
-                if(c.id === komponent_name[1] + "E"){
-                    document.getElementById(c.id).innerText = `${type}-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
-                } else {
-                    document.getElementById(c.id).remove()
+            player.inventory.forEach(i=>{
+                const {type,komponent_name,weight} = i
+                console.log(komponent_name[1])
+                inv_children.forEach(c=>c.remove())
+                if (inHTML(komponent_name[1] + "I") === false){
                     let txt_el          = document.createElement("p")
-                    txt_el.id           = komponent_name[1] + "E"
-                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
-    
-                    document.getElementById("equiped_items").appendChild(txt_el)
+                    txt_el.id           = komponent_name[1] + "I"
+                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
+                    document.getElementById("inventory").appendChild(txt_el)
                 }
             })
-        })
-
+        }
+        
+            //equiped items
+            const equiped_children = Object.values(document.getElementById("equiped_items").children)
+            const eq_c_length = equiped_children.length
+            const eq_p_length = player.equiped.length
+            
+            if (eq_c_length < eq_p_length){
+                player.equiped.forEach(i=>{
+                    const {komponent_name,weight,attachments} = i
+                    console.log(komponent_name[1])
+                    equiped_children.forEach(c=>c.remove())
+                    if (inHTML(komponent_name[1] + "E") === false){
+                        let txt_el          = document.createElement("p")
+                        txt_el.id           = komponent_name[1] + "E"
+                        txt_el.innerText    = `CORE-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+        
+                        document.getElementById("equiped_items").appendChild(txt_el)
+                    }
+                })
+            }
     }
 
     //console.log(player)
