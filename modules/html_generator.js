@@ -2,7 +2,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     arr = generate_array
     //render
     const  [player,enemy_que,clock] = [...arr]
-    //create all of the necessary html elements if they don't already exist, check type
+    
+
+    //PLAYER
     let pn, w, n, l, p, eq, inv, enc
     pn = document.getElementById("USER")
     w = document.getElementById("weight")
@@ -151,8 +153,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
                 })
             }
     }
+    //ENEMY QUE
+    //ClOCK
 
-    //console.log(player)
 })(...arr)
 
 
