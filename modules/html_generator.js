@@ -3,10 +3,10 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     //render
     const  [player,enemy_que,clock] = [...arr]
     
-
     //PLAYER
-    let pn, w, n, l, p, eq, inv, enc
-    pn = document.getElementById("USER")
+    let cmds,pn, w, n, l, p, eq, inv, enc
+    cmds = document.getElementById("USER_commands")
+    pn = document.getElementById("USER_info")
     w = document.getElementById("weight")
     n = document.getElementById("name")
     l = document.getElementById("level")
@@ -17,7 +17,14 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     const checks = [pn,w,n,l,p,eq,inv,enc]
     const checkif_null = v=>v===null
     if(checks.every(checkif_null) === true){ //if the nodes in the playing field empty create a new playing field, otherwise update information
-    //PLAYER:
+    //USER COMMANDS (executed externally through the combat.js module)
+        let command_node = document.createElement("div")
+        let user_cmds = document.createElement("textarea")
+
+        command_node.id = "USER_commands"
+        command_node.appendChild("user_cmds")
+
+    //PLAYER INFO:
         let player_node,
         player_info,
         inventory_management,
@@ -30,8 +37,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         encounters
 
         player_node                 = document.createElement("div") , player_node.id = player.type
-        //PLAYER_INFO
-        player_info                 = document.createElement("div") //player info will be the draggable header as it will be at the top
+        player_info                 = document.createElement("div") //player info should be the draggable header as it will be at the top
         //weight
             weight                  = document.createElement("p") , weight.id = "weight"
             weight.innerText        = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
@@ -78,6 +84,8 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         player_node.appendChild(inventory_management)
         
         document.getElementById("playing_field").appendChild(player_node)
+        document.getElementById("playing_field").appendChild(command_node)
+
     } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
 
         //IDS to check against
@@ -118,7 +126,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         const inv_children = Object.values(document.getElementById("inventory").children)
         const inv_length = inv_children.length
         const pinv_length = player.inventory.length
-        player.inventory.map(i=>console.log(i.komponent_name[1]))
+        //player.inventory.map(i=>console.log(i.komponent_name[1]))
         if (inv_length < pinv_length){
             player.inventory.forEach(i=>{
                 const {type,komponent_name,weight} = i

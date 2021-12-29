@@ -1,5 +1,7 @@
 import {Game} from "../modules/game_objects.js"
 import {HTML_Generate_Objects} from "../modules/html_generator.js"
+import {CSS_Generate} from "../modules/css_generator.js"
+
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
   }
@@ -28,14 +30,21 @@ const BEGIN_LOGIC = async function (string){
         }
 
 
-        //Generate HTML and render it.
+        //Generate HTML and CSS and render it
+        console.time('html_gen')
         await HTML_Generate_Objects(player,enemy_que,clock)
+        console.timeEnd('html_gen')
+
+        console.time('css_gen')
+        //nothing needs to be passed to this anonymous function
+        await CSS_Generate()
+        console.timeEnd('css_gen')
 
         //Check for enemies and handle combat with combat.js
 
         
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
-        console.log(
+    //    console.log(
                     //"\nSession              :",session,
                     //"\nInventory            : ",player.inventory,
                     //"\nText Encounters      : ",player.encounters,
@@ -49,7 +58,7 @@ const BEGIN_LOGIC = async function (string){
                     //player.parts
                     //player.weight
                     //player
-                    )
+  //                  )
     }
 }
 BEGIN_LOGIC("test_hero")

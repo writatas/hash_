@@ -1,0 +1,1 @@
+//a service worker which affects the game stats externally from the html_generator and the css_generator; performs things such as enemy damage, repair calculations
