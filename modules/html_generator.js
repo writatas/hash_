@@ -4,6 +4,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     const  [player,enemy_que,clock] = [...arr]
     
     //PLAYER
+    //These variables are used to check the condition of the HTML
     let cmds,pn, w, n, l, p, eq, inv, enc
     cmds = document.getElementById("USER_commands")
     pn = document.getElementById("USER_info")
@@ -20,9 +21,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     //USER COMMANDS (executed externally through the combat.js module)
         let command_node = document.createElement("div")
         let user_cmds = document.createElement("textarea")
-
+        user_cmds.style.width = "100%" // rewrite this to the css_generator once you figure out how to change childrens css again
         command_node.id = "USER_commands"
-        command_node.appendChild("user_cmds")
+        command_node.appendChild(user_cmds)
 
     //PLAYER INFO:
         let player_node,
