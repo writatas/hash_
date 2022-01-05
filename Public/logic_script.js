@@ -37,7 +37,7 @@ const BEGIN_LOGIC = async function (string){
 
         console.time('css_gen')
         //nothing needs to be passed to this anonymous function
-        await CSS_Generate()
+        await CSS_Generate(player,enemy_que,clock)
         console.timeEnd('css_gen')
 
         //Check for enemies and handle combat with combat.js
@@ -61,4 +61,6 @@ const BEGIN_LOGIC = async function (string){
   //                  )
     }
 }
-BEGIN_LOGIC("test_hero")
+console.time('Running Time')
+BEGIN_LOGIC("test_hero") //test hero will be taken from input as an introductory module
+console.timeEnd('Running Time')
