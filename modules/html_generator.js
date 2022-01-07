@@ -1,7 +1,7 @@
 const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     arr = generate_array
     //render
-    const  [player,enemy_que,clock] = [...arr]
+    const  [player,enemy_que,clock] = [...generate_array]
     
     //PLAYER
     //These variables are used to check the condition of the HTML
@@ -38,7 +38,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         encounters
 
         player_node                 = document.createElement("div") , player_node.id = player.type
-        player_info                 = document.createElement("div") //player info should be the draggable header as it will be at the top
+        player_info                 = document.createElement("div") , player_info.id = player.type + "header" //player info should be the draggable header as it will be at the top
         //weight
             weight                  = document.createElement("p") , weight.id = "weight"
             weight.innerText        = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`

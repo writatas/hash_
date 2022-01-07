@@ -66,26 +66,4 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
 
 
 })(...arr)
-
-//function to make element nodes draggable
-const Draggable_Elements = (...els)=>{
-    //inner functions
-    const drag_mouse_down = (el) => {
-
-    }
-    const element_drag = (el) => {
-
-    }
-    const close_drag_element = () => {
-
-    }
-    if(els.length > 2){
-        return Error("Draggable Element's given exceed the allowed amount")
-    } else {
-        els.forEach(el=>{
-            const [pos1,pos2,pos3,pos4] = [0,0,0,0]
-            
-        })
-    }
-}
 export {CSS_Generate}

@@ -1,13 +1,16 @@
 import {Game} from "../modules/game_objects.js"
 import {HTML_Generate_Objects} from "../modules/html_generator.js"
 import {CSS_Generate} from "../modules/css_generator.js"
-
+import { Draggable_Elements } from "../modules/toggles_and_animations.js"
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
   }
 const BEGIN_LOGIC = async function (string){
     let rate = 2000
     let {session,player,ques,clock,enemy_que} = Game(string,1)
+    //Generate html objects before loop and then execute the Drabbable elements module to make the elements draggable
+    await HTML_Generate_Objects(player,enemy_que,clock)
+    await Draggable_Elements(player.type)
     while (clock > 0 && player.weight.equiped_weight > 0){
         try{
             await delay(rate)
@@ -29,36 +32,17 @@ const BEGIN_LOGIC = async function (string){
             rate -= 10
         }
 
-
         //Generate HTML and CSS and render it
         console.time('html_gen')
         await HTML_Generate_Objects(player,enemy_que,clock)
         console.timeEnd('html_gen')
 
         console.time('css_gen')
-        //nothing needs to be passed to this anonymous function
         await CSS_Generate(player,enemy_que,clock)
         console.timeEnd('css_gen')
-
         //Check for enemies and handle combat with combat.js
 
-        
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
-    //    console.log(
-                    //"\nSession              :",session,
-                    //"\nInventory            : ",player.inventory,
-                    //"\nText Encounters      : ",player.encounters,
-                    //"\nClock                : ",clock,
-                    //"\nEnemies              :",enemy_que.length,
-                    //"\nHealth recent Enemy  :",enemy_que[enemy_que.length - 1],
-                    //"\nPlayer weight        :",player.weight,
-                    //"\nPlayer level         :",player.level,
-                    //"\nParts                :",player.parts,
-                    //"\nTime Rate            :",rate
-                    //player.parts
-                    //player.weight
-                    //player
-  //                  )
     }
 }
 console.time('Running Time')
