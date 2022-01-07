@@ -3,48 +3,89 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
     const [player,enemy_que,clock] = [...arr]
     //highlight all possible commands which are accepted by combat.js
     //if an invalid object occurs after key words, all text values are then grey
-    const Command_Colours = {
-        attack : "red",
-        attach : "yellow",
-        repair : "green",
-        flee   : "orange",
-        invalid: "grey"
-    }
-    //REFACTOR SO YOU CHANGE CSS THIS WAY INSTEAD
-    //starting height and widths for elements
+    const BACKGROUND = document.body
     const USER_NODE = document.getElementById(player.type)
-    const [usr_info] = [USER_NODE.children] //access all available dom components through es6 destructuring
+        const [usr_info] = [USER_NODE.children] //access all available dom components through es6 destructuring
+        const [weight, name, level, parts] = usr_info[0].childNodes
+        const [equiped_items, inventory, encounters] = usr_info[1].childNodes
 
 
-    console.log(usr_info[0].childNodes)
-    
-    console.log(usr_info[1].childNodes)
+    //const USER_COMMANDS = document.getElementById()
 
-    //REFACTOR LIKE THIS GET RID OF document.getelement...
-    //Access dom elements and change by comparing the current dom value with the actual running values.
-    const Cmd_container = document.getElementById('USER_commands')
-    const Usr_commands = document.getElementById('usr_input')
     const CSS = {
-        USER_NODE      : `
-            width:400px;
-            height:500px;
-            border:2px solid black;
-        `,
-        cmd_container   : `
-            border:2px solid black;
-            width:400px;
-            height:300;`,
-        usr_commands    : `
-            outline:none;
-            resize:none;
-            width:90%;
-            height:100%;
-        `,
+        USER_NODE : {
+            default: `
+                border : 2px solid black;
+                width : 400px;
+                height : 500px`,
+            weight:`font-size : 12 px`,
+            name:`font-size : 12 px`,
+            level:`font-size : 12 px`,
+            parts:`font-size : 12 px`,
+            equiped_items:`
+                border : 2px solid black;
+                overflow : scroll;
+                `,
+            inventory:`
+                border : 2px solid black;
+                overflow : scroll;
+                height: 25%;
+            `,
+            encounters:`
+                border : 2px solid black;
+                overflow : scroll;
+                encounters : 25%;
+            `
+        },
+        ENEMY_NODE : {
+            default : ``
+        },
+        //highlight all possible commands which are accepted by combat.js
+        //if an invalid object occurs after key words, all text values are then grey
+        USR_COMMANDS : {
+            default: ``,
+            lint_values : {
+                attack : "red",
+                attach : "yellow",
+                repair : "green",
+                flee   : "orange",
+                invalid: "grey"
+            }
+        }
     }
-    //set the CSS constantly
-    USER_NODE.style = CSS.USER_NODE
-    Cmd_container.style = CSS.cmd_container
+    //Apply CSS constantly based on running states
+    USER_NODE.style = CSS.USER_NODE.default
+        weight.style = CSS.USER_NODE.weight
+        name.style = CSS.USER_NODE.name
+        level.style = CSS.USER_NODE.level
+        parts.style = CSS.USER_NODE.parts
+        equiped_items.style = CSS.USER_NODE.equiped_items
+        inventory.style = CSS.USER_NODE.inventory
+        encounters.style = CSS.USER_NODE.encounters
 
-    Usr_commands.style = CSS.usr_commands
+
+
 })(...arr)
+
+//function to make element nodes draggable
+const Draggable_Elements = (...els)=>{
+    //inner functions
+    const drag_mouse_down = (el) => {
+
+    }
+    const element_drag = (el) => {
+
+    }
+    const close_drag_element = () => {
+
+    }
+    if(els.length > 2){
+        return Error("Draggable Element's given exceed the allowed amount")
+    } else {
+        els.forEach(el=>{
+            const [pos1,pos2,pos3,pos4] = [0,0,0,0]
+            
+        })
+    }
+}
 export {CSS_Generate}
