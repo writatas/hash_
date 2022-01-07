@@ -1,7 +1,8 @@
 import {Game} from "../modules/game_objects.js"
 import {HTML_Generate_Objects} from "../modules/html_generator.js"
 import {CSS_Generate} from "../modules/css_generator.js"
-import { Draggable_Elements } from "../modules/toggles_and_animations.js"
+import {Draggable_Element} from "../modules/toggles_and_animations.js"
+
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
   }
@@ -9,9 +10,13 @@ const BEGIN_LOGIC = async function (string){
     let rate = 2000
     let {session,player,ques,clock,enemy_que} = Game(string,1)
     //Generate html objects before loop and then execute the Drabbable elements module to make the elements draggable
+    console.time('html, toggles/animations, and css')
     await HTML_Generate_Objects(player,enemy_que,clock)
-    await Draggable_Elements(player.type)
-    while (clock > 0 && player.weight.equiped_weight > 0){
+    await CSS_Generate(player,enemy_que,clock)
+    await Draggable_Element(player.type)
+    await Draggable_Element(player.type + '_commands')
+    console.timeEnd('html, toggles/animations, and css')
+    while (clock > 0 && player.weight.equiped_weight > 0){ //this while loop handles the updating of running game object
         try{
             await delay(rate)
         } catch(err){throw err}
@@ -36,10 +41,6 @@ const BEGIN_LOGIC = async function (string){
         console.time('html_gen')
         await HTML_Generate_Objects(player,enemy_que,clock)
         console.timeEnd('html_gen')
-
-        console.time('css_gen')
-        await CSS_Generate(player,enemy_que,clock)
-        console.timeEnd('css_gen')
         //Check for enemies and handle combat with combat.js
 
         //DEBUGGING AND TESTING these values will also be used for endgame statistics

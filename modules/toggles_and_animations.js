@@ -1,49 +1,47 @@
 //function to make element nodes draggable
-const Draggable_Elements = (...els) =>(function(...elements){
-    els = elements
+const Draggable_Element = (el) =>(function(element){
+    el = element
     //inner functions - cannot acces dragmousedown before initialization
-    const drag_mouse_down = (el) => {
-        el = el || window.event
-        el.preventDefault()
-        //get mouse position on startup
-        pos3 = el.clientX
-        pos4 = el.clientY
-        document.onmouseup = close_drag_element
-        //call function whenever cursor moves
-        document.onmousemove = element_drag
+    function dragElement(elmnt) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        const dragMouseDown = (e) => {
+          e = e || window.event;
+          e.preventDefault();
+          // get the mouse cursor position at startup:
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          document.onmouseup = closeDragElement;
+          // call a function whenever the cursor moves:
+          document.onmousemove = elementDrag;
+        }
+      
+        const elementDrag = (e) => {
+          e = e || window.event;
+          e.preventDefault();
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          // set the element's new position:
+          elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+          elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+        
+        const closeDragElement = () => {
+          /* stop moving when mouse button is released:*/
+          document.onmouseup = null;
+          document.onmousemove = null;
+        }
+        if (document.getElementById(elmnt.id + "header")) {
+            /* if present, the header is where you move the DIV from:*/
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+          } else {
+            /* otherwise, move the DIV from anywhere inside the DIV:*/
+            elmnt.onmousedown = dragMouseDown;
+          }
+      }
+      dragElement(document.getElementById(element))
+})(el)
 
-    }
-    const element_drag = (el) => {
-        el = el || window.event
-        el.preventDefault()
-        //calculate new cursor position
-        pos1 = pos3 - el.clientX;
-        pos2 = pos4 - el.clientY;
-        pos3 = el.clientX;
-        pos4 = el.clientY;
-        // set the elements new position
-        elem.style.top = (elem.offsetTop - pos2) + "px"
-        elem.style.top = (elem.offsetLeft - pos1) + "px"
-    }
-    const close_drag_element = () => {
-        //stop moving when mouse button is released
-        document.onmouseup = null
-        document.onmousemove = null
-    }
-    if(elements.length > 2){
-        return Error("Draggable element's given exceeded the allowed amount")
-    } else {
-        elements.forEach(elem=>{
-            let [pos1,pos2,pos3,pos4] = [0,0,0,0]
-            if(document.getElementById(elem.id + "header")){ //choses the header of draggable element
-                //if present, the header is where one drags the html from
-                document.getElementById(elem.id + "header").onmousedown = drag_mouse_down
-            } else {
-                console.log(document.getElementById(elem.id+"header"))
-                elem.onmousedown = drag_mouse_down
-            }
-        })
-    }
-})(...els)
-
-export {Draggable_Elements}
+export {Draggable_Element}

@@ -5,7 +5,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     
     //PLAYER
     //These variables are used to check the condition of the HTML
-    let cmds,pn, w, n, l, p, eq, inv, enc
+    let cmds,pn, w, n, l, p, eq, inv, enc, u_cmds
     cmds = document.getElementById("USER_commands")
     pn = document.getElementById("USER_info")
     w = document.getElementById("weight")
@@ -15,14 +15,19 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     eq = document.getElementById("equiped_items")
     inv = document.getElementById("inventory")
     enc = document.getElementById("encounters")
-    const checks = [pn,w,n,l,p,eq,inv,enc]
+    u_cmds = document.getElementById("USER_commands")
+    const checks = [pn,w,n,l,p,eq,inv,enc,u_cmds]
     const checkif_null = v=>v===null
     if(checks.every(checkif_null) === true){ //if the nodes in the playing field empty create a new playing field, otherwise update information
     //USER COMMANDS (executed externally through the combat.js module)
         let command_node = document.createElement("div")
+        let command_header = document.createElement("p")
         let user_cmds = document.createElement("textarea")
         command_node.id = "USER_commands"
+        command_header.id = player.type + "_commandsheader"
+        command_header.innerText = "test_header to move element"
         user_cmds.id = "usr_input"
+        command_node.appendChild(command_header)
         command_node.appendChild(user_cmds)
 
     //PLAYER INFO:
@@ -131,7 +136,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         if (inv_length < pinv_length){
             player.inventory.forEach(i=>{
                 const {type,komponent_name,weight} = i
-                console.log(komponent_name[1])
+                //console.log(komponent_name[1])
                 inv_children.forEach(c=>c.remove())
                 if (inHTML(komponent_name[1] + "I") === false){
                     let txt_el          = document.createElement("p")
