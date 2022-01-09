@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A post-apocalyptic rpg and resource management game. How long can you survive?",
   "main": "server.cjs",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "node -r dotenv/config server.cjs"
   },
@@ -26,6 +26,7 @@
     "dotenv": "^10.0.0"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-rate-limit": "^6.0.5"
   }
 }
