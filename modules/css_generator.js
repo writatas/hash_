@@ -10,7 +10,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
         const [equiped_items, inventory, encounters] = usr_info[1].childNodes
     const USERCOMMANDS_NODE = document.getElementById(player.type + '_commands')
         const [header,text_area] = USERCOMMANDS_NODE.children
-        console.log(header)
         //const [header,text_area] = commands[0].childNodes
 
     //const USER_COMMANDS = document.getElementById()
@@ -26,7 +25,9 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 height : 500px;
                 position : absolute;
                 z-index : -9;
-                text-align : center;`,
+                text-align : center;
+                overflow : auto;
+                resize : both;`,
             weight:`font-size : 12 px`,
             name:`font-size : 12 px`,
             level:`font-size : 12 px`,
@@ -52,21 +53,29 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
         },
         //highlight all possible commands which are accepted by combat.js
         //if an invalid object occurs after key words, all text values are then grey
-        USR_COMMANDS : {
+        USER_COMMANDS : {
             default: `
                 width : 400px;
                 height : 200px;
-
+                position : absolute;
+                text-align : center;
+                overflow : auto;
+                resize : both;
             `,
-            header : `widht:100%;height:100px;`,
-            text_area : `width:100%;height:100%;`,
-            lint_values : {
-                attack : "red",
-                attach : "yellow",
-                repair : "green",
-                flee   : "orange",
-                invalid: "grey"
-            }
+            header : `widht:400px;height:100px;`,
+            text_area : `
+                width:100%;
+                height:100%;
+                resize:none;
+                overflow:scroll;
+                `,
+            lint_values : [
+                'attack',
+                'attach',
+                'repair',
+                'flee',
+                'invalid'
+            ]
         }
     }
     //Apply CSS constantly based on running states
@@ -79,7 +88,19 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
         equiped_items.style = CSS.USER_NODE.equiped_items
         inventory.style = CSS.USER_NODE.inventory
         encounters.style = CSS.USER_NODE.encounters
-    
+    USERCOMMANDS_NODE.style = CSS.USER_COMMANDS.default
+        header.style = CSS.USER_COMMANDS.header
+        text_area.style = CSS.USER_COMMANDS.text_area
+        // text_area.addEventListener("keyup", (el)=>{ //Change color of text buy its matches
+        //     if(el.keyCode === 32){
+        //         let newHTML = ''
+        //         text_area.value.replace(/[\s]/g,' ').trim().split(' ').forEach(val=>{
+        //             if(CSS.USER_COMMANDS.lint_values.indexOf(val.trim()) > -1){
+                        
+        //             }
+        //         })
+        //     }
+        // })
 
 
 
