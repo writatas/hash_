@@ -1,0 +1,1 @@
+This is a post-apocalyptic rpg where you manage your own resources in order to stay alive.
