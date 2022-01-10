@@ -25,9 +25,13 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 height : 500px;
                 position : absolute;
                 z-index : -9;
-                text-align : center;
                 overflow : auto;
-                resize : both;`,
+                resize : both;
+                grid-template:
+                                "a a a" auto
+                                "b b b" auto
+                                "c c c"; auto
+                `,
             weight:`font-size : 12 px`,
             name:`font-size : 12 px`,
             level:`font-size : 12 px`,
@@ -35,17 +39,14 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
             equiped_items:`
                 border : 2px solid black;
                 overflow : scroll;
-                height : 100px;
                 `,
             inventory:`
                 border : 2px solid black;
                 overflow : scroll;
-                height: 100px;
             `,
             encounters:`
-                border : 2px solid black;
                 overflow : scroll;
-                height : 100px;
+                text-align : left;
             `
         },
         ENEMY_NODE : {
@@ -61,17 +62,19 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 text-align : center;
                 overflow : auto;
                 resize : both;
+                border : 2px solid black;
             `,
-            header : `widht:400px;height:100px;`,
+            header : `width:100%;height:10%px;`,
             text_area : `
                 width:100%;
-                height:100%;
-                resize:none;
+                height:90%;
                 overflow:scroll;
+                background-color:white;
                 `,
             lint_values : [
                 'attack',
                 'attach',
+                'to', //preposition keyword used to attach two different comoponents
                 'repair',
                 'flee',
                 'invalid'
@@ -91,16 +94,30 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
     USERCOMMANDS_NODE.style = CSS.USER_COMMANDS.default
         header.style = CSS.USER_COMMANDS.header
         text_area.style = CSS.USER_COMMANDS.text_area
-        // text_area.addEventListener("keyup", (el)=>{ //Change color of text buy its matches
-        //     if(el.keyCode === 32){
-        //         let newHTML = ''
-        //         text_area.value.replace(/[\s]/g,' ').trim().split(' ').forEach(val=>{
-        //             if(CSS.USER_COMMANDS.lint_values.indexOf(val.trim()) > -1){
-                        
-        //             }
-        //         })
-        //     }
-        // })
+        text_area.setAttribute('contenteditable','true') //make the html within the div editable
+        text_area.addEventListener("keyup", (el)=>{ //Change color of text by its matches
+            if(el.keyCode === 32){
+                let newHTML = ''
+                let text_value = text_area.innerText.replace(/[\s]/g,' ').trim().split(' ')
+                text_value.forEach(val=>{
+                    if(CSS.USER_COMMANDS.lint_values.indexOf(val.trim()) > -1){
+                        newHTML += `<span class="${val}">` + val + '&nbsp;</span>'
+                    } else {
+                        newHTML += '<span class="invalid">' + val + '&nbsp;</span>'
+                    }
+                })
+                text_area.innerHTML = newHTML
+                //set cursor position to the end of the text
+                let child = text_area.children
+                let range = document.createRange()
+                let sel = window.getSelection()
+                range.setStart(child[child.length-1],1)
+                range.collapse(true)
+                sel.removeAllRanges()
+                sel.addRange(range)
+                text_area.focus()
+            }
+        })
 
 
 

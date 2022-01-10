@@ -22,7 +22,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     //USER COMMANDS (executed externally through the combat.js module)
         let command_node = document.createElement("div")
         let command_header = document.createElement("p")
-        let user_cmds = document.createElement("textarea")
+        let user_cmds = document.createElement("div")
         command_node.id = "USER_commands"
         command_header.id = player.type + "_commandsheader"
         command_header.innerText = "test_header to move element"
@@ -125,7 +125,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             let li              = document.createElement("li")
             li.id               = last_encounter_id
             li.innerText        = `${last_encounter_id} : ${player.encounters[last_encounter_id].text}`
-            document.getElementById("encounters").appendChild(li)
+            document.getElementById("encounters").prepend(li)
         }
 
         //INVENTORY - remove element if it does not match running process
