@@ -58,20 +58,29 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
         //if an invalid object occurs after key words, all text values are then grey
         USER_COMMANDS : {
             default: `
-                width : 400px;
-                height : 200px;
+                background-color : black;
+                color : white;
+                width : 500px;
+                height : 300px;
                 position : absolute;
-                text-align : center;
+                text-align : left;
                 overflow : auto;
                 resize : both;
-                border : 2px solid black;
+                border : 2px solid white;
             `,
-            header : `width:100%;height:10%px;`,
+            header : `
+                width:100%;
+                height:5px;
+                padding-left: 10px;
+                `,
             text_area : `
                 width:100%;
-                height:90%;
+                height:89%;
+                text-align:center;
+                padding : 10px;
                 overflow:scroll;
-                background-color:white;
+                background-color:black;
+                border : 2px solid white;
                 `,
             lint_values : [
                 'attack',

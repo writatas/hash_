@@ -1,7 +1,7 @@
 const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     arr = generate_array
     //render
-    const  [player,enemy_que,clock] = [...generate_array]
+    const  [player,enemy_que] = [...generate_array]
     
     //PLAYER
     //These variables are used to check the condition of the HTML
@@ -25,7 +25,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         let user_cmds = document.createElement("div")
         command_node.id = "USER_commands"
         command_header.id = player.type + "_commandsheader"
-        command_header.innerText = "test_header to move element"
+        command_header.innerText = "commands"
         user_cmds.id = "usr_input"
         command_node.appendChild(command_header)
         command_node.appendChild(user_cmds)
@@ -132,7 +132,6 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         const inv_children = Object.values(document.getElementById("inventory").children)
         const inv_length = inv_children.length
         const pinv_length = player.inventory.length
-        //player.inventory.map(i=>console.log(i.komponent_name[1]))
         if (inv_length < pinv_length){
             player.inventory.forEach(i=>{
                 const {type,komponent_name,weight} = i
@@ -141,7 +140,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
                 if (inHTML(komponent_name[1] + "I") === false){
                     let txt_el          = document.createElement("p")
                     txt_el.id           = komponent_name[1] + "I"
-                    txt_el.innerText    = `${type}-->${komponent_name[1]} : weight-${weight}`
+                    txt_el.innerText    = `${type}--${komponent_name[1]} : weight-${weight}`
                     document.getElementById("inventory").appendChild(txt_el)
                 }
             })
@@ -160,7 +159,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
                     if (inHTML(komponent_name[1] + "E") === false){
                         let txt_el          = document.createElement("p")
                         txt_el.id           = komponent_name[1] + "E"
-                        txt_el.innerText    = `CORE-->${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+                        txt_el.innerText    = `${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
         
                         document.getElementById("equiped_items").appendChild(txt_el)
                     }
@@ -168,10 +167,8 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             }
     }
     //ENEMY QUE
-    //ClOCK
 
 })(...arr)
-
 
 
 export {HTML_Generate_Objects}

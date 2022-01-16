@@ -39,13 +39,16 @@ const BEGIN_LOGIC = async function (string){
 
         //Generate HTML and CSS and render it
         console.time('html_gen')
-        await HTML_Generate_Objects(player,enemy_que,clock)
+        await HTML_Generate_Objects(player,enemy_que)
         console.timeEnd('html_gen')
         //Check for enemies and handle combat with combat.js
 
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
     }
 }
+
+//Run an introduction html page
 console.time('Running Time')
-BEGIN_LOGIC("test_hero") //test hero will be taken from input as an introductory module
+BEGIN_LOGIC("test_hero") //test hero will be taken from input as an introductory html page
 console.timeEnd('Running Time')
+//after player death from an outro html page
