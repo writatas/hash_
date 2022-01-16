@@ -5,7 +5,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     
     //PLAYER
     //These variables are used to check the condition of the HTML
-    let cmds,pn, w, n, l, p, eq, inv, enc, u_cmds
+    let pn, w, n, l, p, eq, inv, enc, u_cmds, eque
     cmds = document.getElementById("USER_commands")
     pn = document.getElementById("USER_info")
     w = document.getElementById("weight")
@@ -16,7 +16,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     inv = document.getElementById("inventory")
     enc = document.getElementById("encounters")
     u_cmds = document.getElementById("USER_commands")
-    const checks = [pn,w,n,l,p,eq,inv,enc,u_cmds]
+    eque = document.getElementById("enemy_que") //start here
+
+    const checks = [pn,w,n,l,p,eq,inv,enc,u_cmds,eque]
     const checkif_null = v=>v===null
     if(checks.every(checkif_null) === true){ //if the nodes in the playing field empty create a new playing field, otherwise update information
     //USER COMMANDS (executed externally through the combat.js module)
@@ -89,27 +91,12 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         player_node.appendChild(player_info)
         player_node.appendChild(inventory_management)
         
+
+
         document.getElementById("playing_field").appendChild(player_node)
         document.getElementById("playing_field").appendChild(command_node)
 
     } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
-
-        //IDS to check against
-            //player weight
-            //name
-            //level
-            //parts
-
-            //equiped_items
-                //komponent names (loop if comparisons)
-                //The weight and attachment number needs to be updated if different
-            //inventory
-                //inventory komponent names (loop if comparisons)
-                //inventory items change, therefore they need to be accurate to the running inventory object
-            //encounters
-                //do not really need to be updated, rather information should be appended.
-
-
         //update variables if they are different (variables such as wieght change constantly so they are updated every iteration)
         document.getElementById("weight").innerText               = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
         player.level == document.getElementById("level").innerText ? "" :document.getElementById("level").innerText = `Level: ${player.level}`
@@ -167,6 +154,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             }
     }
     //ENEMY QUE
+
 
 })(...arr)
 
