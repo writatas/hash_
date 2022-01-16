@@ -16,11 +16,13 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
 
     const CSS = { //write the css so that it has a grid template layout proportional to the size of the window screen
         BACKGROUND : `
-        background-color:blue;
+        background-color:white;
         `,
         USER_NODE : {
             default: `
                 border : 2px solid black;
+                background-color : black;
+                color : white;
                 width : 400px;
                 height : 500px;
                 position : absolute;
