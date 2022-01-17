@@ -5,7 +5,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     
     //PLAYER
     //These variables are used to check the condition of the HTML
-    let pn, w, n, l, p, eq, inv, enc, u_cmds, eque
+    let cmds, pn, w, n, l, p, eq, inv, enc, u_cmds, eque
     cmds = document.getElementById("USER_commands")
     pn = document.getElementById("USER_info")
     w = document.getElementById("weight")

@@ -108,16 +108,24 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
         text_area.setAttribute('contenteditable','true') //make the html within the div editable
         text_area.addEventListener("keyup", (el)=>{ //Change color of text by its matches
             if(el.keyCode === 32){
-                let newHTML = ''
+                let newHTML = []
                 let text_value = text_area.innerText.replace(/[\s]/g,' ').trim().split(' ')
                 text_value.forEach(val=>{
+                    let spanEl = document.createElement('span')
                     if(CSS.USER_COMMANDS.lint_values.indexOf(val.trim()) > -1){
-                        newHTML += `<span class="${val}">` + val + '&nbsp;</span>'
+                        spanEl.className = val
+                        spanEl.innerText = `${val}\u00A0`
+                        newHTML.push(spanEl)
                     } else {
-                        newHTML += '<span class="invalid">' + val + '&nbsp;</span>'
+                        spanEl.className = "invalid"
+                        spanEl.innerText = `${val}\u00A0`
+                        newHTML.push(spanEl)
                     }
                 })
-                text_area.innerHTML = newHTML
+                text_area.innerText = '' 
+                newHTML.forEach(el=>{
+                    text_area.appendChild(el)
+                })
                 //set cursor position to the end of the text
                 let child = text_area.children
                 let range = document.createRange()
