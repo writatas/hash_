@@ -54,7 +54,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             name.innerHTML          = player.hash_name
         //level
             level                   = document.createElement("p") , level.id = "level"
-            level.innerText         = player.level
+            level.innerText         = `Level ${player.level}`
         //parts
             parts                   = document.createElement("p") , parts.id = "parts"
             parts.innerText         = player.parts

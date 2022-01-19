@@ -25,6 +25,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 color : white;
                 width : 400px;
                 height : 500px;
+                padding : 10px;
                 position : absolute;
                 z-index : -9;
                 overflow : auto;
@@ -72,6 +73,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 width:100%;
                 height:5px;
                 padding-left: 10px;
+                cursor : pointer;
                 `,
             text_area : `
                 width:100%;
@@ -80,7 +82,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 padding : 10px;
                 overflow:scroll;
                 background-color:black;
-                border : 2px solid white;
+                border-top : 2px solid white;
                 `,
             lint_values : [
                 'attack',
@@ -137,8 +139,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 text_area.focus()
             }
         })
-
-
 
 })(...arr)
 export {CSS_Generate}

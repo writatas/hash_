@@ -1,7 +1,7 @@
 import {Game} from "../modules/game_objects.js"
 import {HTML_Generate_Objects} from "../modules/html_generator.js"
 import {CSS_Generate} from "../modules/css_generator.js"
-import {Draggable_Element} from "../modules/toggles_and_animations.js"
+import {Draggable_Element,Animate_all} from "../modules/toggles_and_animations.js"
 
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
