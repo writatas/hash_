@@ -3,7 +3,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
     const [player,enemy_que,clock] = [...arr]
     //highlight all possible commands which are accepted by combat.js
     //if an invalid object occurs after key words, all text values are then grey
-    const BACKGROUND = document.body
     const USER_NODE = document.getElementById(player.type)
         const [usr_info] = [USER_NODE.children] //access all available dom components through es6 destructuring
         const [weight, name, level, parts] = usr_info[0].childNodes
@@ -15,9 +14,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
     //const USER_COMMANDS = document.getElementById()
 
     const CSS = { //write the css so that it has a grid template layout proportional to the size of the window screen
-        BACKGROUND : `
-        background-color:white;
-        `,
         USER_NODE : {
             default: `
                 border : 2px solid black;
@@ -35,10 +31,10 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                                 "b b b" auto
                                 "c c c"; auto
                 `,
-            weight:`font-size : 12 px`,
-            name:`font-size : 12 px`,
-            level:`font-size : 12 px`,
-            parts:`font-size : 12 px`,
+            weight:`font-size : 12 px; cursor : pointer;`,
+            name:`font-size : 12 px; cursor : pointer;`,
+            level:`font-size : 12 px; cursor : pointer;`,
+            parts:`font-size : 12 px; cursor : pointer;`,
             equiped_items:`
                 border : 2px solid black;
                 overflow : scroll;
@@ -94,8 +90,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
             ]
         }
     }
-    //Apply CSS constantly based on running states
-    BACKGROUND.style = CSS.BACKGROUND
+    //Apply default CSS
     USER_NODE.style = CSS.USER_NODE.default
         weight.style = CSS.USER_NODE.weight
         name.style = CSS.USER_NODE.name

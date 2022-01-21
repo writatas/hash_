@@ -44,23 +44,18 @@ const Draggable_Element = (el) =>(function(element){
       dragElement(document.getElementById(element))
 })(el)
 
-//Animate elements of the game procedurally
-const Animate_all = (...els) =>(function(...elements){
-  els = elements
-  const [clock_time] = elements //get all items to animate via dictionary argument
-  //https://developer.mozilla.org/en-US/docs/Web/API/Element/animate
-  const clock_change = async function(){
-    document.body.animate([ //animate background colors based on clock
-      { // from
-        background: "",
-      },
-      { // to
-        background: "#000"
-      }
-    ],{
-      duration : 1000
-    })
-  }
-})(...elements)
+//Animate background color depending on what happens to the player
+const Animate = {
+  clock : function(c_time){
+    let new_rgb = c_time - 50
+    if(new_rgb > 0){
+      document.body.style.backgroundColor = `rgb(${new_rgb},${new_rgb},${new_rgb})`
+    }else{
+      document.body.style.backgroundColor = `black;`
+    }
+  },
+  
 
-export {Draggable_Element,Animate_all}
+}
+
+export {Draggable_Element,Animate}

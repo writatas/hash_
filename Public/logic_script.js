@@ -1,7 +1,7 @@
 import {Game} from "../modules/game_objects.js"
 import {HTML_Generate_Objects} from "../modules/html_generator.js"
 import {CSS_Generate} from "../modules/css_generator.js"
-import {Draggable_Element,Animate_all} from "../modules/toggles_and_animations.js"
+import {Draggable_Element,Animate} from "../modules/toggles_and_animations.js"
 
 const delay = async function(ms){
     return await new Promise(resolve => setTimeout(resolve,ms));
@@ -15,6 +15,7 @@ const BEGIN_LOGIC = async function (string){
     await CSS_Generate(player,enemy_que,clock)
     await Draggable_Element(player.type)
     await Draggable_Element(player.type + '_commands')
+
     console.timeEnd('html, toggles/animations, and css')
     while (clock > 0 && player.weight.equiped_weight > 0){ //this while loop handles the updating of running game object
         try{
@@ -36,7 +37,8 @@ const BEGIN_LOGIC = async function (string){
             ques = Game(string,player.level).ques,
             rate -= 10
         }
-
+        //Ongoing animations
+        Animate.clock(clock)
         //Generate HTML and CSS and render it
         console.time('html_gen')
         await HTML_Generate_Objects(player,enemy_que)
