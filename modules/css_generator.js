@@ -26,6 +26,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 z-index : -9;
                 overflow : auto;
                 resize : both;
+                border : 2px solid white;
                 grid-template:
                                 "a a a" auto
                                 "b b b" auto
@@ -36,7 +37,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
             level:`font-size : 12 px; cursor : pointer;`,
             parts:`font-size : 12 px; cursor : pointer;`,
             equiped_items:`
-                border : 2px solid black;
                 overflow : scroll;
                 `,
             inventory:`
@@ -46,6 +46,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
             encounters:`
                 overflow : scroll;
                 text-align : left;
+                border-top : 2px solid white;
             `
         },
         ENEMY_NODE : {
@@ -66,13 +67,13 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 border : 2px solid white;
             `,
             header : `
-                width:100%;
+                max-width:100%;
                 height:5px;
                 padding-left: 10px;
                 cursor : pointer;
                 `,
             text_area : `
-                width:100%;
+                max-width:100%;
                 height:89%;
                 text-align:center;
                 padding : 10px;

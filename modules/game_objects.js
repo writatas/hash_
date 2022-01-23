@@ -99,30 +99,32 @@ const Game = (hero,level) => (function(hero_name,starting_level){
     }
     const ENEMIES = (min_health, max_health, min_p, max_p, attack_rate) => {
         const rando = (min,max) => {
-            return Math.floor(Math.random() * ((max - min + 1)+ min))
+            return Math.floor(Math.random() * ((max - min + 1) + min))
+        }
+        const make_id = (length)=>{
+            let [result,characters] = [
+                "",
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+            ]
+            let charactersLength = characters.length
+            for ( let i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
         }
         return {
             type        : "ENEMIES",
+            name        : make_id(rando(3,10)),
             health      : rando(min_health,max_health) + 5,
             perception  : rando(min_p,max_p),
             attack_rate : attack_rate,
-            /*
-            IMPORTANT core of the game!
-            
-            Produce damage asychronously,
-            compare enemy health to players health and make sure to clearintervals after termination,
-            compare the perception with the players weight, based off of a perception table of somekind
-            */
             attack      : async function(player){
                 let attack = ()=>{
                     player._ouch = Math.floor(this.perception * .25 + 1)
                     if(player.weight.equiped_weight <= 0 || player.equiped.length === 0){
-                        //!!this console.log needs to be rendered in html somehow
-                        console.log("\x1b[32m","Enemy attack was cleared nicely! Add to the leader board and restart game.")
-                        console.log(player.name, "Is dead...")
                         dead_or_alive()
                     } else {
-                        //!!this console.log needs to be rendered in html somehow
+                        //updates via while loop in the logic script
                         console.log(player.weight)
                     }
                 }
@@ -133,7 +135,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
             }
         }
     }
-    const TEXT_ENCOUNTER = () =>{ //returns a string
+    const TEXT_ENCOUNTER = (optional) =>{ //returns a string
         const texts = [
             "You knocked over a rock and it fell down a drain...",
             "A crazed but harmless Automaton picks a flower from a patch of grass, then stares at you passing by...",
@@ -148,9 +150,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
           ]
         let text = () =>{
           let n_length = texts.length
-          return {
-              type:"TEXT_ENCOUNTER",
-              text:texts[Math.floor(Math.random() * n_length)]}
+          return optional === undefined ? {type:"TEXT_ENCOUNTER",text:texts[Math.floor(Math.random() * n_length)]} : optional
         }
         return text()
     }

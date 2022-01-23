@@ -1,3 +1,5 @@
+import { append } from "express/lib/response"
+
 const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     arr = generate_array
     //render
@@ -18,7 +20,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     u_cmds = document.getElementById("USER_commands")
     eque = document.getElementById("enemy_que") //start here
 
-    const checks = [pn,w,n,l,p,eq,inv,enc,u_cmds,eque]
+    const checks = [cmds,pn,w,n,l,p,eq,inv,enc,u_cmds,eque]
     const checkif_null = v=>v===null
     if(checks.every(checkif_null) === true){ //if the nodes in the playing field empty create a new playing field, otherwise update information
     //USER COMMANDS (executed externally through the combat.js module)
@@ -91,14 +93,30 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         player_node.appendChild(player_info)
         player_node.appendChild(inventory_management)
         
+        //ENEMY_QUE
+        let enemy_node,
+            enemy_header,
+            enemy_info
+        enemy_node = document.createElement('div'), enemy_node.id = 'enemy_que'
+        enemy_header = document.createElement('div'), enemy_header.id = 'enemy_queheader'
+        enemy_info = document.createElement('div'), enemy_info.id = 'enemy_info'
+            if(enemy_que.length > 0){
+                for(let e = 0; e < enemy_que.length; e++){
+                    let e_container, e_name, the_rest //e_name should change color based on the conditions gleaned from user commands
+                    e_container = document.createElement('div') , e_container.id = `${enemy_que[e].name}`
+                    e_name = document.createElement('p') , e_name.innerText = enemy_que[e].name
+                    the_rest = document.createElement('p') , the_rest.innerText = `Health: ${enemy_que[e].health} Perception: ${enemy_que[e].perception}`
+                    e_container.append(e_name,the_rest)
+                    enemy_info.append(e_container)
+                }
+            }
+            
 
 
-        document.getElementById("playing_field").appendChild(player_node)
-        document.getElementById("playing_field").appendChild(command_node)
-
+        document.getElementById("playing_field").append(player_node,command_node,enemy_node)
     } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
         //update variables if they are different (variables such as wieght change constantly so they are updated every iteration)
-        document.getElementById("weight").innerText               = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
+        document.getElementById("weight").innerText = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
         player.level == document.getElementById("level").innerText ? "" :document.getElementById("level").innerText = `Level: ${player.level}`
         player.parts == document.getElementById("parts").innerText ? "" :document.getElementById("parts").innerText = `Parts: ${player.parts}`
         
@@ -154,6 +172,17 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             }
     }
     //ENEMY QUE
+    const enemy_children = Object.values(document.getElementById("enemy_info").children) //start here
+    const current_enemies = enemy_que.map(n=>n.name)
+        for(let e = 0; e < enemy_children.length; e++) {
+            if(current_enemies.indexOf(e.id) === -1){
+                const {name,health,perception} = enemy_que[enemy_que.length -1]
+                const new_enemy = document.createElement('div') 
+
+            } else {
+
+            }
+        }
 
 
 })(...arr)
