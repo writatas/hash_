@@ -54,7 +54,9 @@ const Animate = {
       document.body.style.backgroundColor = `black;`
     }
   },
-  
+  combat_colors : function(cmds){
+    
+  }
 
 }
 

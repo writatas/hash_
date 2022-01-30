@@ -1,5 +1,3 @@
-import { append } from "express/lib/response"
-
 const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     arr = generate_array
     //render
@@ -99,8 +97,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             enemy_info
         enemy_node = document.createElement('div'), enemy_node.id = 'enemy_que'
         enemy_header = document.createElement('div'), enemy_header.id = 'enemy_queheader'
+        enemy_header.innerText = 'Enemies!'
         enemy_info = document.createElement('div'), enemy_info.id = 'enemy_info'
-            if(enemy_que.length > 0){
+            if(enemy_que.length <= 0){
                 for(let e = 0; e < enemy_que.length; e++){
                     let e_container, e_name, the_rest //e_name should change color based on the conditions gleaned from user commands
                     e_container = document.createElement('div') , e_container.id = `${enemy_que[e].name}`
@@ -110,10 +109,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
                     enemy_info.append(e_container)
                 }
             }
-            
-
-
+        enemy_node.append(enemy_header,enemy_info)
         document.getElementById("playing_field").append(player_node,command_node,enemy_node)
+
     } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
         //update variables if they are different (variables such as wieght change constantly so they are updated every iteration)
         document.getElementById("weight").innerText = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
@@ -174,13 +172,23 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     //ENEMY QUE
     const enemy_children = Object.values(document.getElementById("enemy_info").children) //start here
     const current_enemies = enemy_que.map(n=>n.name)
-        for(let e = 0; e < enemy_children.length; e++) {
-            if(current_enemies.indexOf(e.id) === -1){
-                const {name,health,perception} = enemy_que[enemy_que.length -1]
-                const new_enemy = document.createElement('div') 
-
+    console.log("Current enemies: ", current_enemies)
+    console.log("Enemy_children" , enemy_children)
+    console.log(document.getElementById(current_enemies[0]))
+        for(let e = 0; e < current_enemies.length; e++) {
+            if(document.getElementById(current_enemies[e]) === null){
+                const new_enemy = document.createElement('div')
+                const e_name = document.createElement('p')
+                const the_rest = document.createElement('p')
+                const {name,health,perception} = enemy_que[e]
+                new_enemy.id = name
+                e_name.innerText = name
+                the_rest.innerText = `Health: ${health} Perception: ${perception}`
+                new_enemy.append(e_name,the_rest)
+                document.getElementById('enemy_info').appendChild(new_enemy)
             } else {
-
+                const update = document.getElementById(current_enemies[e])
+                
             }
         }
 

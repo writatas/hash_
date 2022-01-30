@@ -114,7 +114,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
         }
         return {
             type        : "ENEMIES",
-            name        : make_id(rando(3,10)),
+            name        : "e" + make_id(4),
             health      : rando(min_health,max_health) + 5,
             perception  : rando(min_p,max_p),
             attack_rate : attack_rate,
@@ -164,7 +164,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                 if (encounter_chance <= 3){
                     let text = TEXT_ENCOUNTER()
                     yield text
-                } else if (encounter_chance <= 5){
+                } else if (encounter_chance <= 4){
                     let base = (Math.floor(i / Math.sqrt(i)) * level)
                     let min_health = base
                     let max_health = base*2

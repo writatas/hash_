@@ -15,6 +15,7 @@ const BEGIN_LOGIC = async function (string){
     await CSS_Generate(player,enemy_que,clock)
     await Draggable_Element(player.type)
     await Draggable_Element(player.type + '_commands')
+    await Draggable_Element('enemy_que')
 
     console.timeEnd('html, toggles/animations, and css')
     while (clock > 0 && player.weight.equiped_weight > 0){ //this while loop handles the updating of running game object
@@ -37,14 +38,10 @@ const BEGIN_LOGIC = async function (string){
             ques = Game(string,player.level).ques,
             rate -= 10
         }
-        //Ongoing animations
         Animate.clock(clock)
-        //Generate HTML and CSS and render it
-        //console.time('html_gen')
         await HTML_Generate_Objects(player,enemy_que)
-        //console.timeEnd('html_gen')
         //Check for enemies and handle combat with combat.js
-        console.log(enemy_que)
+        
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
     }
 }

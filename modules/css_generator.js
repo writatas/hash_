@@ -9,10 +9,8 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
         const [equiped_items, inventory, encounters] = usr_info[1].childNodes
     const USERCOMMANDS_NODE = document.getElementById(player.type + '_commands')
         const [header,text_area] = USERCOMMANDS_NODE.children
-        //const [header,text_area] = commands[0].childNodes
-
-    //const USER_COMMANDS = document.getElementById()
-
+        const ENEMY_NODE = document.getElementById('enemy_que')
+        const [enemy_header,enemy_info] = ENEMY_NODE.children
     const CSS = { //write the css so that it has a grid template layout proportional to the size of the window screen
         USER_NODE : {
             default: `
@@ -50,7 +48,25 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
             `
         },
         ENEMY_NODE : {
-            default : ``
+            default : `
+                background-color : black;
+                color : white;
+                width : 500px;
+                height : 300px;
+                position : absolute;
+                text-align : left;
+                overflow : auto;
+                resize : both;
+                border : 2px solid white;
+            `,
+            enemy_header : `
+                cursor : pointer;   
+                padding-left : 10px; 
+            `,
+            enemy_info : `
+                max-width : 100%;
+                padding : 10px;
+            `
         },
         //highlight all possible commands which are accepted by combat.js
         //if an invalid object occurs after key words, all text values are then grey
@@ -135,6 +151,9 @@ const CSS_Generate = (...arr)=> (function(...cssArr){
                 text_area.focus()
             }
         })
+    ENEMY_NODE.style = CSS.ENEMY_NODE.default
+        enemy_header.style = CSS.ENEMY_NODE.enemy_header
+        enemy_info.style = CSS.ENEMY_NODE.enemy_info
 
 })(...arr)
 export {CSS_Generate}
