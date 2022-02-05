@@ -1,4 +1,5 @@
-const HTML_Generate_Objects = (...arr) => (function(...generate_array){
+const HTML_Generate_Objects = (...arr) => (function(...generate_array)
+{
     arr = generate_array
     //render
     const  [player,enemy_que] = [...generate_array]
@@ -19,8 +20,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     eque = document.getElementById("enemy_que") //start here
 
     const checks = [cmds,pn,w,n,l,p,eq,inv,enc,u_cmds,eque]
-    const checkif_null = v=>v===null
-    if(checks.every(checkif_null) === true){ //if the nodes in the playing field empty create a new playing field, otherwise update information
+    const checkif_null = v => v === null
+    if(checks.every(checkif_null) === true)
+    { //if the nodes in the playing field empty create a new playing field, otherwise update information
     //USER COMMANDS (executed externally through the combat.js module)
         let command_node = document.createElement("div")
         let command_header = document.createElement("p")
@@ -99,8 +101,10 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         enemy_header = document.createElement('div'), enemy_header.id = 'enemy_queheader'
         enemy_header.innerText = 'Enemies!'
         enemy_info = document.createElement('div'), enemy_info.id = 'enemy_info'
-            if(enemy_que.length <= 0){
-                for(let e = 0; e < enemy_que.length; e++){
+            if(enemy_que.length <= 0)
+            {
+                for(let e = 0; e < enemy_que.length; e++)
+                {
                     let e_container, e_name, the_rest //e_name should change color based on the conditions gleaned from user commands
                     e_container = document.createElement('div') , e_container.id = `${enemy_que[e].name}`
                     e_name = document.createElement('p') , e_name.innerText = enemy_que[e].name
@@ -112,7 +116,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         enemy_node.append(enemy_header,enemy_info)
         document.getElementById("playing_field").append(player_node,command_node,enemy_node)
 
-    } else { //Check by ids if elements exist in the dom and update them if they do not match the running object
+    }
+    else
+    { //Check by ids if elements exist in the dom and update them if they do not match the running object
         //update variables if they are different (variables such as wieght change constantly so they are updated every iteration)
         document.getElementById("weight").innerText = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
         player.level == document.getElementById("level").innerText ? "" :document.getElementById("level").innerText = `Level: ${player.level}`
@@ -121,10 +127,11 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         //TEXT ENCOUNTERS
         let last_encounter_id = Object.keys(player.encounters)[Object.keys(player.encounters).length - 1]
         let encounter_length = Object.keys(player.encounters).length
-        const inHTML = (s)=>{ //check if element in document exists and return a boolean
+        const inHTML = (s) => { //check if element in document exists and return a boolean
              return document.getElementById(s) === undefined || document.getElementById(s) === null ? false : true
         }
-        if(encounter_length > 0 && inHTML(last_encounter_id) === false){
+        if(encounter_length > 0 && inHTML(last_encounter_id) === false)
+        {
             let li              = document.createElement("li")
             li.id               = last_encounter_id
             li.innerText        = `${last_encounter_id} : ${player.encounters[last_encounter_id].text}`
@@ -135,12 +142,14 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
         const inv_children = Object.values(document.getElementById("inventory").children)
         const inv_length = inv_children.length
         const pinv_length = player.inventory.length
-        if (inv_length < pinv_length){
-            player.inventory.forEach(i=>{
+        if (inv_length < pinv_length)
+        {
+            player.inventory.forEach(i => {
                 const {type,komponent_name,weight} = i
                 //console.log(komponent_name[1])
                 inv_children.forEach(c=>c.remove())
-                if (inHTML(komponent_name[1] + "I") === false){
+                if (inHTML(komponent_name[1] + "I") === false)
+                {
                     let txt_el          = document.createElement("p")
                     txt_el.id           = komponent_name[1] + "I"
                     txt_el.innerText    = `${type}--${komponent_name[1]} : weight-${weight}`
@@ -154,12 +163,14 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
             const eq_c_length = equiped_children.length
             const eq_p_length = player.equiped.length
             
-            if (eq_c_length < eq_p_length){
-                player.equiped.forEach(i=>{
+            if (eq_c_length < eq_p_length)
+            {
+                player.equiped.forEach(i => {
                     const {komponent_name,weight,attachments} = i
                     console.log(komponent_name[1])
-                    equiped_children.forEach(c=>c.remove())
-                    if (inHTML(komponent_name[1] + "E") === false){
+                    equiped_children.forEach(c => c.remove())
+                    if (inHTML(komponent_name[1] + "E") === false)
+                    {
                         let txt_el          = document.createElement("p")
                         txt_el.id           = komponent_name[1] + "E"
                         txt_el.innerText    = `${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
@@ -175,8 +186,10 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
     console.log("Current enemies: ", current_enemies)
     console.log("Enemy_children" , enemy_children)
     console.log(document.getElementById(current_enemies[0]))
-        for(let e = 0; e < current_enemies.length; e++) {
-            if(document.getElementById(current_enemies[e]) === null){
+        for(let e = 0; e < current_enemies.length; e++)
+        {
+            if(document.getElementById(current_enemies[e]) === null)
+            {
                 const new_enemy = document.createElement('div')
                 const e_name = document.createElement('p')
                 const the_rest = document.createElement('p')
@@ -186,12 +199,12 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array){
                 the_rest.innerText = `Health: ${health} Perception: ${perception}`
                 new_enemy.append(e_name,the_rest)
                 document.getElementById('enemy_info').appendChild(new_enemy)
-            } else {
-                const update = document.getElementById(current_enemies[e])
-                
+            }
+            else
+            {
+                const update = document.getElementById(current_enemies[e]) 
             }
         }
-
 
 })(...arr)
 

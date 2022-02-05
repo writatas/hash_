@@ -1,4 +1,5 @@
-const Game = (hero,level) => (function(hero_name,starting_level){
+const Game = (hero,level) => (function(hero_name,starting_level)
+{
     let level = starting_level
     let hero = hero_name //private variable
     const USER = () =>{
@@ -34,7 +35,8 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                   inventory_weight:i_w
                 }
               },
-              get hash_name(){
+              get hash_name()
+              {
                 let hash = 0, i, chr;
                 if (hero.length === 0) return hash;
                     for (i = 0; i < hero.length; i++) {
@@ -44,8 +46,9 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                     }
                 const hexconvert = hash.toString(16)
                 return "Model#: " + hexconvert;
-            },
-            set _ouch(d){
+              },
+            set _ouch(d)
+            {
               let rando_choice = Math.floor(Math.random() * this.equiped.length)
               let d_check = this.equiped[rando_choice].weight -= d
         
@@ -81,10 +84,12 @@ const Game = (hero,level) => (function(hero_name,starting_level){
             level           : level,
             weight          : (level + h) * level,
             attachments     : [],
-            get cost(){
+            get cost()
+            {
                 return this.weight * 100
             },
-            set _attach(K){
+            set _attach(K)
+            {
                 let message 
                 delete K.attachments
                 delete K.level
@@ -101,7 +106,7 @@ const Game = (hero,level) => (function(hero_name,starting_level){
         const rando = (min,max) => {
             return Math.floor(Math.random() * ((max - min + 1) + min))
         }
-        const make_id = (length)=>{
+        const make_id = (length) => {
             let [result,characters] = [
                 "",
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
@@ -118,12 +123,16 @@ const Game = (hero,level) => (function(hero_name,starting_level){
             health      : rando(min_health,max_health) + 5,
             perception  : rando(min_p,max_p),
             attack_rate : attack_rate,
-            attack      : async function(player){
+            attack      : async function(player)
+            {
                 let attack = ()=>{
                     player._ouch = Math.floor(this.perception * .25 + 1)
-                    if(player.weight.equiped_weight <= 0 || player.equiped.length === 0){
+                    if (player.weight.equiped_weight <= 0 || player.equiped.length === 0)
+                    {
                         dead_or_alive()
-                    } else {
+                    }
+                    else
+                    {
                         //updates via while loop in the logic script
                         console.log(player.weight)
                     }
@@ -148,23 +157,26 @@ const Game = (hero,level) => (function(hero_name,starting_level){
             "The hum of a large, but abandoned factory rings out its last processes...",
             "In the midst of an alcove a deer with three horns is feasting on a brush of long grass...",
           ]
-        let text = () =>{
+        let text = () => {
           let n_length = texts.length
           return optional === undefined ? {type:"TEXT_ENCOUNTER",text:texts[Math.floor(Math.random() * n_length)]} : optional
         }
         return text()
     }
-    const ENVIRONMENT = () =>{ //changes states of objects through time through its own instance
+    const ENVIRONMENT = () => { //changes states of objects through time through its own instance
         const Session = {date:Date(),hero_name:hero}
             //YOU should include the users weight as a factor for whether or not the clock continues
             //revert to the start page for restart, or maybe a leader board?
         const _ques = function*(level){
             for (let i = 1; i < 1000; i ++){
                 let encounter_chance = Math.floor(Math.random() * 10)
-                if (encounter_chance <= 3){
+                if (encounter_chance <= 3)
+                {
                     let text = TEXT_ENCOUNTER()
                     yield text
-                } else if (encounter_chance <= 4){
+                }
+                else if (encounter_chance <= 4)
+                {
                     let base = (Math.floor(i / Math.sqrt(i)) * level)
                     let min_health = base
                     let max_health = base*2
@@ -173,7 +185,9 @@ const Game = (hero,level) => (function(hero_name,starting_level){
                     let attack_rate =  max_perception * 10 - (min_perception + max_health + min_health)
                     let enemy = ENEMIES(min_health,max_health,min_perception,max_perception,attack_rate)
                     yield enemy
-                } else {
+                }
+                else
+                {
                     let computed_hp = Math.floor(Math.sqrt(i))
                     //console.log(computed_hp)
                     let comp = KOMPONENT(KOMPONENT().komponent_name[1],computed_hp,computed_hp)

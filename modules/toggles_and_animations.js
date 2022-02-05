@@ -1,5 +1,6 @@
 //function to make element nodes draggable
-const Draggable_Element = (el) =>(function(element){
+const Draggable_Element = (el) =>(function(element)
+{
     el = element
     //inner functions - cannot acces dragmousedown before initialization
     function dragElement(elmnt) {
@@ -46,15 +47,20 @@ const Draggable_Element = (el) =>(function(element){
 
 //Animate background color depending on what happens to the player
 const Animate = {
-  clock : function(c_time){
+  clock : function(c_time)
+  {
     let new_rgb = c_time - 50
-    if(new_rgb > 0){
+    if(new_rgb > 0)
+    {
       document.body.style.backgroundColor = `rgb(${new_rgb},${new_rgb},${new_rgb})`
-    }else{
+    }
+    else
+    {
       document.body.style.backgroundColor = `black;`
     }
   },
-  combat_colors : function(cmds){
+  combat_colors : function(cmds)
+  {
     
   }
 

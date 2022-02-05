@@ -1,4 +1,5 @@
-const CSS_Generate = (...arr)=> (function(...cssArr){
+const CSS_Generate = (...arr)=> (function(...cssArr)
+{
     arr = cssArr
     const [player,enemy_que,clock] = [...arr]
     //highlight all possible commands which are accepted by combat.js
