@@ -26,6 +26,9 @@ const BEGIN_LOGIC = async function (string)
         try
         {
             await delay(rate)
+            //enemy attack
+            //await Combat("player_attack",enemy_que, Math.random() * enemy_que.length)
+            
         }
         catch(err)
         {

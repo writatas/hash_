@@ -102,7 +102,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             }
         }
     }
-    const ENEMIES = (min_health, max_health, min_p, max_p, attack_rate) => {
+    const ENEMIES = (min_health, max_health, min_p, max_p) => {
         const rando = (min,max) => {
             return Math.floor(Math.random() * ((max - min + 1) + min))
         }
@@ -122,24 +122,30 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             name        : "e" + make_id(4),
             health      : rando(min_health,max_health) + 5,
             perception  : rando(min_p,max_p),
-            attack_rate : attack_rate,
-            attack      : async function(player)
+            attack      : function(player)
             {
-                let attack = ()=>{
-                    player._ouch = Math.floor(this.perception * .25 + 1)
-                    if (player.weight.equiped_weight <= 0 || player.equiped.length === 0)
-                    {
-                        dead_or_alive()
-                    }
-                    else
-                    {
-                        //updates via while loop in the logic script
-                        console.log(player.weight)
-                    }
+             
+                if (player.weight.equiped_weight <= 0 || player.equiped.length === 0)
+                {
+                    dead()
                 }
-                let rate = await setInterval(attack,this.attack_rate)
-                let dead_or_alive = ()=>{ //
-                    clearInterval(rate)
+                else
+                {
+                    //updates via while loop in the logic script
+                    player._ouch = Math.floor(this.perception * .25 + 1)
+                    console.log(player.weight)
+                }
+                
+                let dead = () => {
+                    //Change this later to return a value that triggers a restart
+                    return `RESTART`
+                }
+            },
+            set _ouch(d) {
+                this.health -= d
+                if (this.health <= 0)
+                {
+                    return `RESTART`
                 }
             }
         }
