@@ -200,10 +200,6 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
                 new_enemy.append(e_name,the_rest)
                 document.getElementById('enemy_info').appendChild(new_enemy)
             }
-            else
-            {
-                const update = document.getElementById(current_enemies[e]) 
-            }
         }
 
 })(...arr)

@@ -1,33 +1,21 @@
 //manage and help implement the actual logic of enemies attacking player, player attacking enemies, player repairing themselves
-const Combat = (opt) => (function(option)
+const Combat = (p,e) => (function(player,enemies)
 {
-    opt = option //player or enemy
+    p = player
+    e = enemies
     
-    const regex = /(attack [\w]{5}|attach [\w]{5} to [\w]{5}|repair [\w]{5}|flee [\w]{5}|invalid [\w]{5})/g
-
+    //read the player's commands and then compare the overall perception of enemies to player weight to see who goes first
+    //If the player's weight is smaller than the combined perception of the enemies, then the enemys will get to attack first
+    const regex = /(attack\u00A0[\w]{5}|attach\u00A0[\w]{5}\u00A0to\u00A0[\w]{5}|repair\u00A0[\w]{5}|flee\u00A0[\w]{5}|invalid\u00A0[\w]{5})/gm
     const commands = document.getElementById('usr_input').innerText
+    const matches = commands.match(regex)
+    //console.log(matches)
 
-    commands.matchAll(regex)
-
-    if (option === "player_attack")
+    for (let i = 0; i < enemies.length; i++) //Enemy_que variable is available in the scope of logic_script.js
     {
-        console.log("player attacked")
-
-
-    }
-    else if (option === "enemy_attack")
-    {
-        console.log("enemy attacked")
-        for (i = 0; i < enemy_que.length; i++) //Enemy_que variable is available in the scope of logic_script.js
-        {
-            enemy_que[i]
-        }
-    }
-    else
-    {
-        return null;
+        console.log(enemies[i])
     }
 
-})(opt)
+})(p,e)
 
 export {Combat}
