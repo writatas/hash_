@@ -103,7 +103,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 'attach',
                 'to', //preposition keyword used to attach two different comoponents
                 'repair',
-                'flee',
                 'invalid'
             ]
         }
@@ -117,6 +116,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
         equiped_items.style = CSS.USER_NODE.equiped_items
         inventory.style = CSS.USER_NODE.inventory
         encounters.style = CSS.USER_NODE.encounters
+
     USERCOMMANDS_NODE.style = CSS.USER_COMMANDS.default
         header.style = CSS.USER_COMMANDS.header
         text_area.style = CSS.USER_COMMANDS.text_area
@@ -125,20 +125,23 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
             if(el.keyCode === 32){
                 let newHTML = []
                 let text_value = text_area.innerText.replace(/[\s]/g,' ').trim().split(' ')
-                text_value.forEach(val=>{
+                text_value.forEach(val => {
                     let spanEl = document.createElement('span')
-                    if(CSS.USER_COMMANDS.lint_values.indexOf(val.trim()) > -1){
+                    if(CSS.USER_COMMANDS.lint_values.indexOf(val.trim()) > -1)
+                    {
                         spanEl.className = val
                         spanEl.innerText = `${val}\u00A0`
                         newHTML.push(spanEl)
-                    } else {
+                    }
+                    else
+                    {
                         spanEl.className = "invalid"
                         spanEl.innerText = `${val}\u00A0`
                         newHTML.push(spanEl)
                     }
                 })
                 text_area.innerText = '' 
-                newHTML.forEach(el=>{
+                newHTML.forEach(el => {
                     text_area.appendChild(el)
                 })
                 //set cursor position to the end of the text
@@ -152,6 +155,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 text_area.focus()
             }
         })
+
     ENEMY_NODE.style = CSS.ENEMY_NODE.default
         enemy_header.style = CSS.ENEMY_NODE.enemy_header
         enemy_info.style = CSS.ENEMY_NODE.enemy_info
