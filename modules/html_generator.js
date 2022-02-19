@@ -167,7 +167,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
             {
                 player.equiped.forEach(i => {
                     const {komponent_name,weight,attachments} = i
-                    console.log(komponent_name[1])
+                    //console.log(komponent_name[1])
                     equiped_children.forEach(c => c.remove())
                     if (inHTML(komponent_name[1] + "E") === false)
                     {
@@ -183,9 +183,9 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
     //ENEMY QUE
     const enemy_children = Object.values(document.getElementById("enemy_info").children) //start here
     const current_enemies = enemy_que.map(n=>n.name)
-    console.log("Current enemies: ", current_enemies)
-    console.log("Enemy_children" , enemy_children)
-    console.log(document.getElementById(current_enemies[0]))
+    //console.log("Current enemies: ", current_enemies)
+    //console.log("Enemy_children" , enemy_children)
+    //console.log(document.getElementById(current_enemies[0]))
         for(let e = 0; e < current_enemies.length; e++)
         {
             if(document.getElementById(current_enemies[e]) === null)

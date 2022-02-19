@@ -124,6 +124,10 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             perception  : rando(min_p,max_p),
             attack      : function(player)
             {
+                let dead = () => {
+                    //Change this later to return a value that triggers a restart by returning zero
+                    return 0
+                }
              
                 if (player.weight.equiped_weight <= 0 || player.equiped.length === 0)
                 {
@@ -136,10 +140,6 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                     console.log(player.weight)
                 }
                 
-                let dead = () => {
-                    //Change this later to return a value that triggers a restart
-                    return `RESTART`
-                }
             },
             set _ouch(d) {
                 this.health -= d

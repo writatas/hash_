@@ -54,8 +54,6 @@ const BEGIN_LOGIC = async function (string)
         Animate.clock(clock)
         await HTML_Generate_Objects(player,enemy_que)
 
-        //Check for enemies and handle combat with combat.js
-        Combat("enemy_attack", player)
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
     }
 }
