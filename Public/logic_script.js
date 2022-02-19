@@ -11,7 +11,7 @@ const delay = async function(ms)
 const BEGIN_LOGIC = async function (string)
 {
     let rate = 2000
-    let {session,player,ques,clock,enemy_que} = Game(string,1)
+    let {session, player ,ques ,clock ,enemy_que, actions} = Game(string,1)
     //Generate html objects before loop and then execute the Drabbable elements module to make the elements draggable
     //console.time('html, toggles/animations, and css')
     await HTML_Generate_Objects(player,enemy_que,clock)
@@ -26,7 +26,7 @@ const BEGIN_LOGIC = async function (string)
         try
         {
             await delay(rate)
-            await Combat(player,enemy_que)
+            await Combat(player,enemy_que,actions)
         }
         catch(err)
         {

@@ -59,6 +59,10 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 console.log("\x1b[35m",`Komponents left ${this.equiped.length}\n`)
                 )
               : this.equiped[rando_choice].weight -= d
+            },
+            attack : function (enemy)
+            {
+                enemy._ouch = this.weight.damage_modifier
             }
         }
     }
@@ -150,7 +154,8 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             }
         }
     }
-    const TEXT_ENCOUNTER = (optional) =>{ //returns a string
+    const TEXT_ENCOUNTER = (optional) =>
+    { //returns a string
         const texts = [
             "You knocked over a rock and it fell down a drain...",
             "A crazed but harmless Automaton picks a flower from a patch of grass, then stares at you passing by...",
@@ -163,18 +168,44 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             "The hum of a large, but abandoned factory rings out its last processes...",
             "In the midst of an alcove a deer with three horns is feasting on a brush of long grass...",
           ]
-        let text = () => {
+        let text = () =>
+        {
           let n_length = texts.length
           return optional === undefined ? {type:"TEXT_ENCOUNTER",text:texts[Math.floor(Math.random() * n_length)]} : optional
         }
         return text()
     }
-    const ENVIRONMENT = () => { //changes states of objects through time through its own instance
+    const ENVIRONMENT = () =>
+    { //changes states of objects through time through its own instance
         const Session = {date:Date(),hero_name:hero}
-            //YOU should include the users weight as a factor for whether or not the clock continues
-            //revert to the start page for restart, or maybe a leader board?
-        const _ques = function*(level){
-            for (let i = 1; i < 1000; i ++){
+        function Action_que() // simple priority que function
+        {
+            this.actions = []
+            this.enqueue = (item) =>
+            {
+                const idx = this.actions.findIndex(e => e[2] > item[2])
+                if (idx !== -1)
+                {
+                    this.actions.splice(idx, 0, item)
+                }
+                else
+                {
+                    this.actions.push(item)
+                }
+            }
+            this.dequeue = () =>
+            {
+                return this.actions.shift()[0]
+            }
+            this.size = () =>
+            {
+                return this.actions.length
+            }
+        }
+        const _ques = function*(level)
+        {
+            for (let i = 1; i < 1000; i ++)
+            {
                 let encounter_chance = Math.floor(Math.random() * 10)
                 if (encounter_chance <= 3)
                 {
@@ -202,13 +233,13 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             }
         }
 
-        //let q = _ques(1)
         return {
             session:Session,
             player:USER(),
             ques:_ques(level),
             clock:300,
             enemy_que: [],
+            actions: new Action_que()
         } 
     }
     return ENVIRONMENT()

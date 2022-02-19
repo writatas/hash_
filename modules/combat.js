@@ -1,8 +1,9 @@
 //manage and help implement the actual logic of enemies attacking player, player attacking enemies, player repairing themselves
-const Combat = (p,e) => (function(player,enemies)
+const Combat = (p, e, a) => (function(player, enemies, action_que)
 {
     p = player
     e = enemies
+    a = action_que
     
     //read the player's commands and then compare the overall perception of enemies to player weight to see who goes first
     //If the player's weight is smaller than the combined perception of the enemies, then the enemys will get to attack first
@@ -14,27 +15,39 @@ const Combat = (p,e) => (function(player,enemies)
     const enemy_length = enemies.length
     document.getElementById('enemy_queheader').innerText = `Enemies: ${enemy_length}`
 
-    const enemy_p_count = enemy_length > 0 ? enemies.map(p => p.perception).reduce((a, b) => a + b) : 0
-
     const player_hp = player.weight.equiped_weight !== undefined ? player.weight.equiped_weight : 0
 
-    console.log(enemy_length,enemy_p_count,player_hp)
-    if (enemy_p_count > player_hp)
+    console.log(enemy_length, player_hp) //O(n^3)
+
+    //que enemy and player actions in a priority que to be executed in order by comparing the enemies perception with the players equiped weight (health)
+    for (let e = 0; e < enemy_length; e++)
     {
-        for (let e = 0; e < enemy_length; e++)
-        {
-            enemies[e].attack(player)
-        }
+        action_que.enqueue(["enemy_attack", enemies[e], enemies[e].perception])
     }
-    else
+    for (let m = 0; m < matches_len; m++)
     {
-        for (let m = 0; m < matches_len; m++)
+        action_que.enqueue(["player_attack", matches[m].split(/\u00A0/), player_hp])
+    }
+
+    for (let a = 0; a < action_que.size(); a++)//0(nlogn)
+    {
+        let act = action_que.dequeue()
+        if (act[0] === "enemy_attack")
         {
-            let cmd = matches[m].split(/\u00A0/)
-            console.log(cmd)
+            act[1].attack(player)
+        }
+        else if (act[0] === "player_attack")
+        {
+            for (let e = 0; e < enemy_length; e++)
+            {
+                if (enemies[e].name === act[1][1])
+                {
+                    player.attack(enemies[e])
+                }
+            }
         }
     }
 
-})(p,e)
+})(p, e, a)
 
 export {Combat}
