@@ -17,35 +17,41 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
 
     const player_hp = player.weight.equiped_weight !== undefined ? player.weight.equiped_weight : 0
 
-    console.log(enemy_length, player_hp) //O(n^3)
+    //console.log(enemy_length, player_hp) //O(n^3)
 
-    //que enemy and player actions in a priority que to be executed in order by comparing the enemies perception with the players equiped weight (health)
-    for (let e = 0; e < enemy_length; e++)
+    if (action_que.size() === 0)
     {
-        action_que.enqueue(["enemy_attack", enemies[e], enemies[e].perception])
-    }
-    for (let m = 0; m < matches_len; m++)
-    {
-        action_que.enqueue(["player_attack", matches[m].split(/\u00A0/), player_hp])
-    }
-
-    for (let a = 0; a < action_que.size(); a++)//0(nlogn)
-    {
-        let act = action_que.dequeue()
-        if (act[0] === "enemy_attack")
+        //que enemy and player actions in a priority que to be executed in order by comparing the enemies perception with the players equiped weight (health)
+        for (let e = 0; e < enemy_length; e++)
         {
-            act[1].attack(player)
+            action_que.enqueue(["enemy_attack", enemies[e], enemies[e].perception])
         }
-        else if (act[0] === "player_attack")
+        for (let m = 0; m < matches_len; m++)
         {
-            for (let e = 0; e < enemy_length; e++)
+            action_que.enqueue(["player_attack", matches[m].split(/\u00A0/), player_hp - Math.abs(player_hp / 2)])
+        }
+    }
+    else
+    {
+      for (let q = 0; q < action_que.size(); q++)
+      {
+          let act = action_que.dequeue()
+          if (act[0] === "enemy_attack")
+          {
+            act[1].attack(player)
+          }
+          else if (act[0] === "player_attack")
+          {
+            for (let e = 0; e < enemies.length;e++)
             {
                 if (enemies[e].name === act[1][1])
                 {
                     player.attack(enemies[e])
+                    console.log(enemies[e].name)
                 }
             }
-        }
+          }
+      }
     }
 
 })(p, e, a)

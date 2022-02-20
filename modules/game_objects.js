@@ -140,8 +140,8 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 else
                 {
                     //updates via while loop in the logic script
-                    player._ouch = Math.floor(this.perception * .25 + 1)
-                    console.log(player.weight)
+                    player._ouch = Math.floor(this.perception * .1 + 1)
+                    //console.log(player.weight)
                 }
                 
             },
@@ -181,6 +181,10 @@ const Game = (hero,level) => (function(hero_name,starting_level)
         function Action_que() // simple priority que function
         {
             this.actions = []
+            this.print = () =>
+            {
+                console.log(this.actions)
+            }
             this.enqueue = (item) =>
             {
                 const idx = this.actions.findIndex(e => e[2] > item[2])
@@ -195,13 +199,14 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             }
             this.dequeue = () =>
             {
-                return this.actions.shift()[0]
+                return this.actions.shift()
             }
             this.size = () =>
             {
                 return this.actions.length
             }
         }
+
         const _ques = function*(level)
         {
             for (let i = 1; i < 1000; i ++)
@@ -239,7 +244,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             ques:_ques(level),
             clock:300,
             enemy_que: [],
-            actions: new Action_que()
+            moves: new Action_que()
         } 
     }
     return ENVIRONMENT()
