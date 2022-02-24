@@ -54,15 +54,16 @@ const Game = (hero,level) => (function(hero_name,starting_level)
         
               d_check <= 0 ? (
                 //!!this console.log needs to be rendered in html somehow
-                console.log("\x1b[33m",`\n(line 50)  ${this.equiped[rando_choice].komponent_name[0]} destroyed!\n`),
-                this.equiped.splice(rando_choice,1),
-                console.log("\x1b[35m",`Komponents left ${this.equiped.length}\n`)
+                this.equiped.splice(rando_choice,1)
                 )
               : this.equiped[rando_choice].weight -= d
             },
             attack : function (enemy)
             {
-                enemy._ouch = this.weight.damage_modifier
+                if(!!enemy)
+                {
+                    enemy._ouch = this.weight.damage_modifier
+                }
             }
         }
     }
@@ -84,7 +85,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
         }
         return {
             type            : "KOMPONENT",
-            komponent_name  : [k_name.typed_name,k_name.make_id(5)],
+            komponent_name  : [k_name.typed_name, k_name.make_id(5)],
             level           : level,
             weight          : (level + h) * level,
             attachments     : [],
@@ -146,7 +147,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 
             },
             set _ouch(d) {
-                this.health -= d
+                this.health -= d + 1
                 if (this.health <= 0)
                 {
                     return `RESTART`
@@ -217,7 +218,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                     let text = TEXT_ENCOUNTER()
                     yield text
                 }
-                else if (encounter_chance <= 4)
+                else if (encounter_chance <= 2)
                 {
                     let base = (Math.floor(i / Math.sqrt(i)) * level)
                     let min_health = base

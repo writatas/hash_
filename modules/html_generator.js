@@ -140,55 +140,51 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
 
         //INVENTORY - remove element if it does not match running process
         const inv_children = Object.values(document.getElementById("inventory").children)
-        const inv_length = inv_children.length
-        const pinv_length = player.inventory.length
-        if (inv_length < pinv_length)
+        player.inventory.forEach(i =>
         {
-            player.inventory.forEach(i => {
-                const {type,komponent_name,weight} = i
-                //console.log(komponent_name[1])
-                inv_children.forEach(c=>c.remove())
-                if (inHTML(komponent_name[1] + "I") === false)
-                {
-                    let txt_el          = document.createElement("p")
-                    txt_el.id           = komponent_name[1] + "I"
-                    txt_el.innerText    = `${type}--${komponent_name[1]} : weight-${weight}`
-                    document.getElementById("inventory").appendChild(txt_el)
-                }
-            })
-        }
+            const {type, komponent_name, weight} = i
+            //console.log(komponent_name[1])
+            inv_children.forEach(c => c.remove())
+            if (inHTML(komponent_name[1] + "I") === false)
+            {
+                let txt_el          = document.createElement("p")
+                txt_el.id           = komponent_name[1] + "I"
+                txt_el.innerText    = `${type}--${komponent_name[1]} : weight-${weight}`
+                document.getElementById("inventory").appendChild(txt_el)
+            }
+        })
         
             //equiped items
             const equiped_children = Object.values(document.getElementById("equiped_items").children)
-            const eq_c_length = equiped_children.length
-            const eq_p_length = player.equiped.length
-            
-            if (eq_c_length < eq_p_length)
-            {
-                player.equiped.forEach(i => {
-                    const {komponent_name,weight,attachments} = i
-                    //console.log(komponent_name[1])
-                    equiped_children.forEach(c => c.remove())
-                    if (inHTML(komponent_name[1] + "E") === false)
-                    {
-                        let txt_el          = document.createElement("p")
-                        txt_el.id           = komponent_name[1] + "E"
-                        txt_el.innerText    = `${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
-        
-                        document.getElementById("equiped_items").appendChild(txt_el)
-                    }
-                })
-            }
+            player.equiped.forEach(i => {
+                const {komponent_name,weight,attachments} = i
+                //console.log(komponent_name[1])
+                equiped_children.forEach(c => c.remove())
+                if (inHTML(komponent_name[1] + "E") === false)
+                {
+                    let txt_el          = document.createElement("p")
+                    txt_el.id           = komponent_name[1] + "E"
+                    txt_el.innerText    = `${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+    
+                    document.getElementById("equiped_items").appendChild(txt_el)
+                }
+            })
     }
     //ENEMY QUE
-    const enemy_children = Object.values(document.getElementById("enemy_info").children) //start here
-    const current_enemies = enemy_que.map(n=>n.name)
-    //console.log("Current enemies: ", current_enemies)
-    //console.log("Enemy_children" , enemy_children)
-    //console.log(document.getElementById(current_enemies[0]))
+
+    const current_enemies = !!enemy_que ? enemy_que.map(n => n.name) : 0
+
+    console.log(enemy_que)
+        //Need a better data struct here, rather than looping systems (Optimize)
+        const enemy_children = Object.values(document.getElementById("enemy_info").children)
+        for (let c = 0; c < enemy_children.length; c++)
+        {
+            enemy_children[c].remove()
+        }
+        console.log(current_enemies)
         for(let e = 0; e < current_enemies.length; e++)
         {
-            if(document.getElementById(current_enemies[e]) === null)
+            if(!!current_enemies)
             {
                 const new_enemy = document.createElement('div')
                 const e_name = document.createElement('p')
