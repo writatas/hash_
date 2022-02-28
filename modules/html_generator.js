@@ -70,7 +70,6 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
         //PLAYER_INVENTORY
         inventory_management        = document.createElement("div")
         //equiped items - f
-
             equiped_items           = document.createElement("div") , equiped_items.id = "equiped_items"
             //equiped items per element in array structure
             //type: [string]
@@ -156,18 +155,15 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
         
             //equiped items
             const equiped_children = Object.values(document.getElementById("equiped_items").children)
+            equiped_children.forEach(c => c.remove())
             player.equiped.forEach(i => {
                 const {komponent_name,weight,attachments} = i
                 //console.log(komponent_name[1])
                 equiped_children.forEach(c => c.remove())
-                if (inHTML(komponent_name[1] + "E") === false)
-                {
-                    let txt_el          = document.createElement("p")
-                    txt_el.id           = komponent_name[1] + "E"
-                    txt_el.innerText    = `${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
-    
-                    document.getElementById("equiped_items").appendChild(txt_el)
-                }
+                let txt_el          = document.createElement("p")
+                txt_el.id           = komponent_name[1] + "E"
+                txt_el.innerText    = `${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+                document.getElementById("equiped_items").appendChild(txt_el)
             })
     }
     //ENEMY QUE

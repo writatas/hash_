@@ -101,8 +101,9 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 this.attachments.length < level + 1 ? (
                     this.attachments.push(K), // user inventory should be cleansed after attaching something
                     this.weight += K.weight,
-                    message = K.komponent + " attached to " + this.komponent_name + "successfully...")
-                : message = "Level of Komponent too low..."
+                    message = K.komponent_name[1] + " attached to " + this.komponent_name[1] + " successfully...")
+                : message = "Level is too low..."
+                K.komponent_name[1] = "USED"
                 console.log(message) //debugging
             }
         }

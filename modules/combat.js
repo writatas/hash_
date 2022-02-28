@@ -19,6 +19,10 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
 
     //console.log(enemy_length, player_hp) //O(n^3)
 
+    const clear_user_input = () =>
+    {
+        document.getElementById('usr_input').innerText = ""
+    }
     
     if (action_que.size() === 0)
     {
@@ -56,18 +60,23 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             }
             else if (act[1][0] === "attach")
             {
-                //console.log("attach", act[1][1], act[1][3])
-                let inv = player.inventory.forEach(k => console.log(k))
-                console.log(inv)
-                player.equiped.forEach(k => k.komponent_name[1] === act[1][1] ? k._attach = inv : "")
-                for (let i = 0; i < player.inventory; i++)
+                console.log(act[1][1], act[1][3])
+                const inv = player.inventory.filter(i => i.komponent_name[1] === act[1][1])[0]
+                const equip = player.equiped.filter(i => i.komponent_name[1] === act[1][3])[0]
+                
+                equip !== undefined && inv !== undefined ? equip._attach = inv: "";
+
+                for (let i = 0; i < player.inventory.length; i++)
                 {
-                    //remove from player inventory after attachment
-                    if (player.inventory[i].komponent_name === act[1][3])
+                    console.log(player.inventory[i].komponent_name[1], i)
+                    if (player.inventory[i].komponent_name[1] === "USED")
                     {
                         player.inventory.splice(i, 1)
                     }
                 }
+                
+                
+
             }
             else if (act[1][0] === "repair")
             {
