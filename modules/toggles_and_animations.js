@@ -11,6 +11,7 @@ const Draggable_Element = (el) =>(function(element)
           // get the mouse cursor position at startup:
           pos3 = e.clientX;
           pos4 = e.clientY;
+          console.log(window.innerWidth)
           document.onmouseup = closeDragElement;
           // call a function whenever the cursor moves:
           document.onmousemove = elementDrag;
@@ -58,10 +59,6 @@ const Animate = {
     {
       document.body.style.backgroundColor = `black;`
     }
-  },
-  combat_colors : function(cmds)
-  {
-    
   }
 
 }

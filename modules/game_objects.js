@@ -63,7 +63,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 const damage = enemy.health - Math.abs(this.weight.damage_modifier)
                 enemy.health = damage
             },
-            build : function (komponent) //build a new named component with parts
+            build : function () //build a new named component with parts
             {
                 const can_component = this.equiped.length < 6 + this.level ? true : false
                 const creation_cost = Math.floor(this.parts / 2) * this.level
@@ -71,7 +71,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 if (can_component && this.parts - creation_cost > 0) // if 0
                 {
                     const hp = Math.floor(creation_cost / 10) + 1
-                    const built_komponent = KOMPONENT(komponent, this.level, hp + 1)
+                    const built_komponent = KOMPONENT("build", this.level, hp + 1)
                     this.equiped.push(built_komponent)
                     this.parts -= creation_cost
                 }
@@ -162,7 +162,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             }
         }
     }
-    const TEXT_ENCOUNTER = (optional) =>
+    const TEXT_ENCOUNTER = () =>
     { //returns a string
         const texts = [
             "You knocked over a rock and it fell down a drain...",
@@ -179,7 +179,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
         let text = () =>
         {
           let n_length = texts.length
-          return optional === undefined ? {type:"TEXT_ENCOUNTER",text:texts[Math.floor(Math.random() * n_length)]} : optional
+          return {type:"TEXT_ENCOUNTER",text:texts[Math.floor(Math.random() * n_length)]}
         }
         return text()
     }
@@ -220,7 +220,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             for (let i = 1; i < 1000; i ++)
             {
                 let encounter_chance = Math.floor(Math.random() * 10)
-                if (encounter_chance <= 3)
+                if (encounter_chance < 3)
                 {
                     let text = TEXT_ENCOUNTER()
                     yield text

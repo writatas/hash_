@@ -7,7 +7,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
     
     //read the player's commands and then compare the overall perception of enemies to player weight to see who goes first
     //If the player's weight is smaller than the combined perception of the enemies, then the enemys will get to attack first
-    const regex = /(attack\u00A0[\w]{5}|attach\u00A0[\w]{5}\u00A0to\u00A0[\w]{5}|build\u00A0[\w]{5}|invalid\u00A0[\w]{5})/gm
+    const regex = /(attack\u00A0[\w]{5}|attach\u00A0[\w]{5}\u00A0to\u00A0[\w]{5}|build)/gm
     const commands = document.getElementById('usr_input').innerText
     const matches = commands.match(regex)
     const matches_len = matches !== null ? matches.length : 0
@@ -17,6 +17,10 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
 
     const player_hp = player.weight.equiped_weight !== undefined ? player.weight.equiped_weight : 0
     
+    const text_encounter = (op, o_text) => {
+        const encounter = {type:"TEXT_ENCOUNTER", text: o_text}
+        player.encounters[op] = encounter
+    }
     if (action_que.size() === 0)
     {
         //que enemy and player actions in a priority que to be executed in order by comparing the enemies perception with the players equiped weight (health)
@@ -37,6 +41,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
           if (act[0] === "enemy_move" && !!act[1])
           {
                 act[1].attack(player)
+                text_encounter("enemy",`The enemy ${act[1].name} attacked you!`)
           }
           else if (act[0] === "player_move")
           {
@@ -47,6 +52,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
                     if (enemies[e].name === act[1][1])
                     {
                         player.attack(enemies[e])
+                        text_encounter("player", `You attacked the enemy ${enemies[e].name}`)
                     }
                 }
             }
@@ -66,11 +72,12 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
                         player.inventory.splice(i, 1)
                     }
                 }
-                //clear_user_input()
+                text_encounter("player",`You attached component ${act[1[1]]} to component ${act[1[3]]}!`)
             }
             else if (act[1][0] === "build") //using parts to build another Komponent which cna take attachments
             {
-                player.build(act[1][1])
+                player.build()
+                text_encounter("player",`You built a new component!`)
             }
             
           }
