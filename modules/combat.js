@@ -28,7 +28,6 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
         {
             action_que.enqueue(["player_move", matches[m].split(/\u00A0/), player_hp - Math.abs(player_hp / 2)])
         }
-        console.log(action_que.print())
     }
     else
     {
@@ -45,7 +44,6 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             {
                 for (let e = 0; e < enemies.length;e++)
                 {
-                    if (enemies[e].health <= 0) {enemies.splice(e,1)}
                     if (enemies[e].name === act[1][1])
                     {
                         player.attack(enemies[e])

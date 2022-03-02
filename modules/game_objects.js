@@ -65,14 +65,13 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             },
             build : function (komponent) //build a new named component with parts
             {
-                const can_component = this.equiped.length % 6
-                const creation_cost = Math.floor(this.parts / 3) * this.level
+                const can_component = this.equiped.length < 6 + this.level ? true : false
+                const creation_cost = Math.floor(this.parts / 2) * this.level
 
-                if (!can_component && this.parts - creation_cost > 0) // if 0
+                if (can_component && this.parts - creation_cost > 0) // if 0
                 {
                     const hp = Math.floor(creation_cost / 10) + 1
-                    const built_komponent = KOMPONENT(komponent,this.level, hp)
-                    built_komponent.komponent_name[1] = built_komponent.komponent_name[0]
+                    const built_komponent = KOMPONENT(komponent, this.level, hp + 1)
                     this.equiped.push(built_komponent)
                     this.parts -= creation_cost
                 }
@@ -140,7 +139,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
         }
         return {
             type        : "ENEMIES",
-            name        : "e" + make_id(4),
+            name        : "E" + make_id(4),
             health      : rando(min_health,max_health) + 5,
             perception  : rando(min_p,max_p),
             attack      : function(player)
@@ -157,8 +156,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 else
                 {
                     //updates via while loop in the logic script
-                    player._ouch = Math.floor(this.perception / 10) + 1
-                    this.perception
+                    player._ouch = player.level
                 }
                 
             }
@@ -229,19 +227,13 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 }
                 else if (encounter_chance > 8)
                 {
-                    let base = (Math.floor(i / Math.sqrt(i)) * level)
-                    let min_health = base
-                    let max_health = base + 10
-                    let min_perception = base + 10
-                    let max_perception = min_perception*2
-                    let attack_rate =  max_perception * 10 - (min_perception + max_health + min_health)
-                    let enemy = ENEMIES(min_health,max_health,min_perception,max_perception,attack_rate)
+                    let enemy = ENEMIES(3 + level, 10 * level, 3 + level, 10 * level)
                     yield enemy
                 }
                 else
                 {
                     //console.log(computed_hp)
-                    let comp = KOMPONENT(KOMPONENT().komponent_name[1], 10, 10 * level)
+                    let comp = KOMPONENT("generate", level, 10 * level + 1)
                     yield comp
                 }
             }

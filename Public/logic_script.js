@@ -19,10 +19,18 @@ const BEGIN_LOGIC = async function (string)
     await Draggable_Element(player.type)
     await Draggable_Element(player.type + '_commands')
     await Draggable_Element('enemy_que')
-
+    
     //console.timeEnd('html, toggles/animations, and css')
     while (clock > 0 && player.weight.equiped_weight > 0)
     { //this while loop handles the updating of running game object
+        console.log(ques)
+        for (let e = 0; e < enemy_que.length; e++)
+        {
+            if (enemy_que[e].health < 0)
+            {
+                enemy_que.splice(e,1)
+            }
+        }
         try
         {
             await delay(rate)
