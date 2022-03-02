@@ -169,15 +169,13 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
     //ENEMY QUE
 
     const current_enemies = !!enemy_que ? enemy_que.map(n => n.name) : 0
-
-    console.log(enemy_que)
         //Need a better data struct here, rather than looping systems (Optimize)
         const enemy_children = Object.values(document.getElementById("enemy_info").children)
         for (let c = 0; c < enemy_children.length; c++)
         {
             enemy_children[c].remove()
         }
-        console.log(current_enemies)
+        //console.log(current_enemies)
         for(let e = 0; e < current_enemies.length; e++)
         {
             if(!!current_enemies)

@@ -28,7 +28,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 this.inventory.forEach(i=>{
                   i_w += i.weight
                 })
-                let damage_modifier = Math.floor((e_w - i_w)/2)
+                let damage_modifier = Math.floor((e_w - i_w)/3)
                 return {
                   damage_modifier:damage_modifier,
                   equiped_weight:e_w,
@@ -60,10 +60,24 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             },
             attack : function (enemy)
             {
-                if(!!enemy)
+                const damage = enemy.health - Math.abs(this.weight.damage_modifier)
+                enemy.health = damage
+            },
+            build : function (komponent) //build a new named component with parts
+            {
+                const can_component = this.equiped.length % 6
+                const creation_cost = Math.floor(this.parts / 3) * this.level
+
+                if (!can_component && this.parts - creation_cost > 0) // if 0
                 {
-                    enemy._ouch = this.weight.damage_modifier
+                    const hp = Math.floor(creation_cost / 10) + 1
+                    const built_komponent = KOMPONENT(komponent,this.level, hp)
+                    built_komponent.komponent_name[1] = built_komponent.komponent_name[0]
+                    this.equiped.push(built_komponent)
+                    this.parts -= creation_cost
                 }
+                console.log(this.equiped)
+                
             }
         }
     }
@@ -89,9 +103,9 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             level           : level,
             weight          : (level + h) * level,
             attachments     : [],
-            get cost()
+            get cost ()
             {
-                return this.weight * 100
+                return this.weight * 10
             },
             set _attach(K)
             {
@@ -99,13 +113,14 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 delete K.attachments
                 delete K.level
                 this.attachments.length < level + 1 ? (
-                    this.attachments.push(K), // user inventory should be cleansed after attaching something
+                    this.attachments.push(K),
                     this.weight += K.weight,
                     message = K.komponent_name[1] + " attached to " + this.komponent_name[1] + " successfully...")
                 : message = "Level is too low..."
                 K.komponent_name[1] = "USED"
                 console.log(message) //debugging
             }
+
         }
     }
     const ENEMIES = (min_health, max_health, min_p, max_p) => {
@@ -142,17 +157,10 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 else
                 {
                     //updates via while loop in the logic script
-                    player._ouch = Math.floor(this.perception * .1 + 1)
-                    //console.log(player.weight)
+                    player._ouch = Math.floor(this.perception / 10) + 1
+                    this.perception
                 }
                 
-            },
-            set _ouch(d) {
-                this.health -= d + 1
-                if (this.health <= 0)
-                {
-                    return `RESTART`
-                }
             }
         }
     }
@@ -219,11 +227,11 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                     let text = TEXT_ENCOUNTER()
                     yield text
                 }
-                else if (encounter_chance <= 2)
+                else if (encounter_chance > 8)
                 {
                     let base = (Math.floor(i / Math.sqrt(i)) * level)
                     let min_health = base
-                    let max_health = base*2
+                    let max_health = base + 10
                     let min_perception = base + 10
                     let max_perception = min_perception*2
                     let attack_rate =  max_perception * 10 - (min_perception + max_health + min_health)
@@ -232,9 +240,8 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 }
                 else
                 {
-                    let computed_hp = Math.floor(Math.sqrt(i))
                     //console.log(computed_hp)
-                    let comp = KOMPONENT(KOMPONENT().komponent_name[1],computed_hp,computed_hp)
+                    let comp = KOMPONENT(KOMPONENT().komponent_name[1], 10, 10 * level)
                     yield comp
                 }
             }

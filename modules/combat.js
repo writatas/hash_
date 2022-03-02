@@ -7,7 +7,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
     
     //read the player's commands and then compare the overall perception of enemies to player weight to see who goes first
     //If the player's weight is smaller than the combined perception of the enemies, then the enemys will get to attack first
-    const regex = /(attack\u00A0[\w]{5}|attach\u00A0[\w]{5}\u00A0to\u00A0[\w]{5}|repair\u00A0[\w]{5}|invalid\u00A0[\w]{5})/gm
+    const regex = /(attack\u00A0[\w]{5}|attach\u00A0[\w]{5}\u00A0to\u00A0[\w]{5}|build\u00A0[\w]{5}|invalid\u00A0[\w]{5})/gm
     const commands = document.getElementById('usr_input').innerText
     const matches = commands.match(regex)
     const matches_len = matches !== null ? matches.length : 0
@@ -16,13 +16,6 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
     document.getElementById('enemy_queheader').innerText = `Enemies: ${enemy_length}`
 
     const player_hp = player.weight.equiped_weight !== undefined ? player.weight.equiped_weight : 0
-
-    //console.log(enemy_length, player_hp) //O(n^3)
-
-    const clear_user_input = () =>
-    {
-        document.getElementById('usr_input').innerText = ""
-    }
     
     if (action_que.size() === 0)
     {
@@ -35,6 +28,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
         {
             action_que.enqueue(["player_move", matches[m].split(/\u00A0/), player_hp - Math.abs(player_hp / 2)])
         }
+        console.log(action_que.print())
     }
     else
     {
@@ -43,7 +37,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
           let act = action_que.dequeue()
           if (act[0] === "enemy_move" && !!act[1])
           {
-                act[1].attack(player)  
+                act[1].attack(player)
           }
           else if (act[0] === "player_move")
           {
@@ -51,9 +45,9 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             {
                 for (let e = 0; e < enemies.length;e++)
                 {
+                    if (enemies[e].health <= 0) {enemies.splice(e,1)}
                     if (enemies[e].name === act[1][1])
                     {
-                        if (enemies[e].health <= 0) {enemies.splice(e,1)}
                         player.attack(enemies[e])
                     }
                 }
@@ -74,13 +68,11 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
                         player.inventory.splice(i, 1)
                     }
                 }
-                
-                
-
+                //clear_user_input()
             }
-            else if (act[1][0] === "repair")
+            else if (act[1][0] === "build") //using parts to build another Komponent which cna take attachments
             {
-                player.equiped.forEach(k => k.komponent_name[1] === act[1][1] ? console.log(k.cost) : "")
+                player.build(act[1][1])
             }
             
           }

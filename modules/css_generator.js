@@ -102,7 +102,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 'attack',
                 'attach',
                 'to', //preposition keyword used to attach two different comoponents
-                'repair',
+                'build',
                 'invalid'
             ]
         }
