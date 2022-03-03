@@ -6,12 +6,11 @@ const Draggable_Element = (el) =>(function(element)
     function dragElement(elmnt) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         const dragMouseDown = (e) => {
-          e = e || window.event;
+          e = e || window.addEventListener("click",dragMouseDown(e))
           e.preventDefault();
           // get the mouse cursor position at startup:
           pos3 = e.clientX;
           pos4 = e.clientY;
-          console.log(window.innerWidth)
           document.onmouseup = closeDragElement;
           // call a function whenever the cursor moves:
           document.onmousemove = elementDrag;
@@ -26,8 +25,44 @@ const Draggable_Element = (el) =>(function(element)
           pos3 = e.clientX;
           pos4 = e.clientY;
           // set the element's new position:
-          elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-          elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+          let windowW = window.innerWidth
+          let windowH = window.innerHeight
+          let clientW = elmnt.clientWidth
+          let clientH = elmnt.clientHeight
+
+          console.log(windowH - clientH, elmnt.offsetTop)
+
+          if (elmnt.offsetLeft >= -1 && elmnt.offsetLeft < windowW - clientW - 5)
+          {
+            elmnt.style.left = `${elmnt.offsetLeft - pos1}px`
+          }
+          else if (elmnt.offsetLeft <= -1)
+          {
+            elmnt.style.left = `${1}px`
+          }
+          else if (elmnt.offsetLeft >= windowH - clientH - 5)
+          {
+            elmnt.style.left = `${windowH - clientH - 5}px`
+          }
+
+          if (elmnt.offsetTop > -1 && elmnt.offsetTop < (windowH - clientH) - 5)
+          {
+            elmnt.style.top = `${elmnt.offsetTop - pos2}px`
+          }
+          else if (elmnt.offsetTop < 5)
+          {
+            elmnt.style.top = `${6}px`
+          }
+          else if (elmnt.offsetTop >= windowH - clientH - 6)
+          {
+            elmnt.style.top = `${windowH - clientH - 10}px`
+          }
+          else
+          {
+            elmnt.style.left = Math.floor((windowW - clientW) / 2)
+            elmnt.style.top = Math.floor((windowH - clientH) / 2)
+          }
+
         }
         
         const closeDragElement = () => {
