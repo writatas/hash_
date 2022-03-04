@@ -11,12 +11,12 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             parts       : 0,
             inventory   : [],
             equiped     : [
-                KOMPONENT("Head",1,10),
-                KOMPONENT("Torso",1,10),
-                KOMPONENT("Left Arm",1,10),
-                KOMPONENT("Right Arm",1,10),
-                KOMPONENT("Left Leg",1,10),
-                KOMPONENT("Right Leg",1,10),
+                KOMPONENT("Head",1,50),
+                KOMPONENT("Torso",1,50),
+                KOMPONENT("Left Arm",1,50),
+                KOMPONENT("Right Arm",1,50),
+                KOMPONENT("Left Leg",1,50),
+                KOMPONENT("Right Leg",1,50),
             ],
             get weight(){ 
                 let e_w = 0
@@ -62,6 +62,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             {
                 const damage = enemy.health - Math.abs(this.weight.damage_modifier)
                 enemy.health = damage
+                this.parts += 100 * this.level
             },
             build : function () //build a new named component with parts
             {

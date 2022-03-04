@@ -18,7 +18,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 border : 2px solid black;
                 background-color : black;
                 color : white;
-                width : 400px;
+                width : 500px;
                 height : 500px;
                 padding : 10px;
                 position : absolute;

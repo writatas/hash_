@@ -2,10 +2,36 @@
 const Draggable_Element = (el) =>(function(element)
 {
     el = element
-    //inner functions - cannot acces dragmousedown before initialization
+    
+    window.addEventListener("resize",()=>
+    {
+      let windowW = window.innerWidth
+      //let windowH = window.innerHeight
+      const element = document.getElementById(el)
+
+      if (windowW < 500)
+      {
+        element.style.width = `100%`
+        element.style.left = `${1}px`
+        element.style.top = `${6}px`
+
+        element.style.position = "relative"
+        element.style.overflow = "none"
+        element.style.height = `${33.3}%`
+      }
+      else
+      {
+        element.style.position = "absolute"
+        element.style.overflow = "auto"
+        element.style.height = `500px`
+        element.style.width = `500px`
+      }
+    })
+
     function dragElement(elmnt) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        const dragMouseDown = (e) => {
+        const dragMouseDown = (e) =>
+        {
           e = e || window.addEventListener("click",dragMouseDown(e))
           e.preventDefault();
           // get the mouse cursor position at startup:
@@ -14,10 +40,11 @@ const Draggable_Element = (el) =>(function(element)
           document.onmouseup = closeDragElement;
           // call a function whenever the cursor moves:
           document.onmousemove = elementDrag;
+          document.getElementById(el).style.zIndex = "1"
         }
       
         const elementDrag = (e) => {
-          e = e || window.event;
+          e = e || window.addEventListener("click",elementDrag(e))
           e.preventDefault();
           // calculate the new cursor position:
           pos1 = pos3 - e.clientX;
@@ -29,8 +56,6 @@ const Draggable_Element = (el) =>(function(element)
           let windowH = window.innerHeight
           let clientW = elmnt.clientWidth
           let clientH = elmnt.clientHeight
-
-          console.log(windowH - clientH, elmnt.offsetTop)
 
           if (elmnt.offsetLeft >= -1 && elmnt.offsetLeft < windowW - clientW - 5)
           {
@@ -78,7 +103,9 @@ const Draggable_Element = (el) =>(function(element)
             elmnt.onmousedown = dragMouseDown;
           }
       }
+      
       dragElement(document.getElementById(element))
+      
 })(el)
 
 //Animate background color depending on what happens to the player
