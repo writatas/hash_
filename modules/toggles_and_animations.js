@@ -6,25 +6,30 @@ const Draggable_Element = (el) =>(function(element)
     window.addEventListener("resize",()=>
     {
       let windowW = window.innerWidth
-      //let windowH = window.innerHeight
+      let windowH = window.innerHeight
       const element = document.getElementById(el)
 
-      if (windowW < 500)
+      if (windowW < 1000)
       {
         element.style.width = `100%`
         element.style.left = `${1}px`
         element.style.top = `${6}px`
 
         element.style.position = "relative"
-        element.style.overflow = "none"
+        element.style.overflow = "auto"
         element.style.height = `${33.3}%`
       }
       else
       {
-        element.style.position = "absolute"
-        element.style.overflow = "auto"
-        element.style.height = `500px`
+        let encounters_fixed = document.getElementById("encounters") 
+
+        element.style.overflow = "none"
+        element.style.height = `300px`
         element.style.width = `500px`
+        element.style.position = "absolute"
+        
+        encounters_fixed.style.overflow = "auto"
+        encounters_fixed.style.height = "30px"
       }
     })
 
@@ -40,7 +45,6 @@ const Draggable_Element = (el) =>(function(element)
           document.onmouseup = closeDragElement;
           // call a function whenever the cursor moves:
           document.onmousemove = elementDrag;
-          document.getElementById(el).style.zIndex = "1"
         }
       
         const elementDrag = (e) => {
