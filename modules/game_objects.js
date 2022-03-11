@@ -180,7 +180,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
         let text = () =>
         {
           let n_length = texts.length
-          return {type:"TEXT_ENCOUNTER",text:texts[Math.floor(Math.random() * n_length)]}
+          return {type:"TEXT_ENCOUNTER", text:texts[Math.floor(Math.random() * n_length)]}
         }
         return text()
     }

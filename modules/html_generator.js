@@ -131,10 +131,21 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
         }
         if(encounter_length > 0 && inHTML(last_encounter_id) === false)
         {
+            //change color of text elements depending on if the text node was produced from a player or an enemy
+            const [playerRegx, enemyRegx] = [/player/gm, /enemy/gm]
             let li              = document.createElement("li")
             li.id               = last_encounter_id
             li.innerText        = `${last_encounter_id} : ${player.encounters[last_encounter_id].text}`
             document.getElementById("encounters").prepend(li)
+
+            if (playerRegx.test(li.id))
+            {
+                li.style.color = "blue"
+            }
+            else if (enemyRegx.test(li.id))
+            {
+                li.style.color = "red"
+            }
         }
 
         //INVENTORY - remove element if it does not match running process

@@ -17,9 +17,11 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
 
     const player_hp = player.weight.equiped_weight !== undefined ? player.weight.equiped_weight : 0
     
-    const text_encounter = (op, o_text) => {
+    const text_encounter = (op, o_text) =>
+    {
+        const key = `${Math.floor(performance.now() / 100)}${op}`
         const encounter = {type:"TEXT_ENCOUNTER", text: o_text}
-        player.encounters[op] = encounter
+        player.encounters[key] = encounter
     }
     if (action_que.size() === 0)
     {

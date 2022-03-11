@@ -29,7 +29,6 @@ const Draggable_Element = (el) =>(function(element)
         element.style.position = "absolute"
         
         encounters_fixed.style.overflow = "auto"
-        encounters_fixed.style.height = "30px"
       }
     })
 
