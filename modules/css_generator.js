@@ -22,7 +22,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 height : 500px;
                 padding : 10px;
                 position : absolute;
-                z-index : -9;
                 overflow : auto;
                 resize : both;
                 border : 2px solid white;

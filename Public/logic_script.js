@@ -1,7 +1,7 @@
 import {Game} from "../modules/game_objects.js"
 import {HTML_Generate_Objects} from "../modules/html_generator.js"
 import {CSS_Generate} from "../modules/css_generator.js"
-import {Draggable_Element,Animate} from "../modules/toggles_and_animations.js"
+import {Draggable_Element, Animate} from "../modules/toggles_and_animations.js"
 import {Combat} from "../modules/combat.js"
 
 const delay = async function(ms)
@@ -58,9 +58,8 @@ const BEGIN_LOGIC = async function (string)
             ques = Game(string,player.level).ques,
             rate -= 10
         }
-        Animate.clock(clock)
         await HTML_Generate_Objects(player,enemy_que)
-
+        await Animate.clock(clock)
         //DEBUGGING AND TESTING these values will also be used for endgame statistics
     }
 }

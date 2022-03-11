@@ -126,7 +126,6 @@ const Animate = {
       document.body.style.backgroundColor = `black;`
     }
   }
-
 }
 
-export {Draggable_Element,Animate}
+export {Draggable_Element, Animate}
