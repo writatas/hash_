@@ -18,11 +18,13 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 border : 2px solid black;
                 background-color : black;
                 color : white;
-                width : 500px;
-                height : 500px;
+                width : 508px;
+                height : 598px;
                 padding : 10px;
                 position : absolute;
                 overflow : auto;
+                left : 1px;
+                top : 6px;
                 resize : both;
                 border : 2px solid white;
                 grid-template:
@@ -58,6 +60,8 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 overflow : auto;
                 resize : both;
                 border : 2px solid white;
+                left : 533px;
+                top : 8px;
             `,
             enemy_header : `
                 cursor : pointer;   
@@ -81,6 +85,8 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 overflow : auto;
                 resize : both;
                 border : 2px solid white;
+                left : 534px;
+                top : 320px;
             `,
             header : `
                 max-width:100%;

@@ -60,7 +60,6 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             }
             else if (act[1][0] === "attach")
             {
-                console.log(act[1][1], act[1][3])
                 const inv = player.inventory.filter(i => i.komponent_name[1] === act[1][1])[0]
                 const equip = player.equiped.filter(i => i.komponent_name[1] === act[1][3])[0]
                 
@@ -74,7 +73,8 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
                         player.inventory.splice(i, 1)
                     }
                 }
-                text_encounter("player",`You attached component ${act[1[1]]} to component ${act[1[3]]}!`)
+                //little Bug here
+                text_encounter("player",`You attached component ${act[1][1]} to component ${act[1][3]}!`)
             }
             else if (act[1][0] === "build") //using parts to build another Komponent which cna take attachments
             {

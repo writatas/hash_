@@ -8,7 +8,6 @@ const Draggable_Element = (el) =>(function(element)
       let windowW = window.innerWidth
       let windowH = window.innerHeight
       const element = document.getElementById(el)
-
       if (windowW < 1000)
       {
         element.style.width = `100%`
@@ -24,11 +23,53 @@ const Draggable_Element = (el) =>(function(element)
         let encounters_fixed = document.getElementById("encounters") 
 
         element.style.overflow = "none"
-        element.style.height = `300px`
-        element.style.width = `500px`
         element.style.position = "absolute"
-        
         encounters_fixed.style.overflow = "auto"
+
+        document.getElementById("USER").style = `
+        border : 2px solid black;
+        background-color : black;
+        color : white;
+        width : 508px;
+        height : 598px;
+        padding : 10px;
+        position : absolute;
+        overflow : auto;
+        left : 1px;
+        top : 6px;
+        resize : both;
+        border : 2px solid white;
+        grid-template:
+                        "a a a" auto
+                        "b b b" auto
+                        "c c c"; auto
+        `
+        document.getElementById("USER_commands").style =  `
+        background-color : black;
+        color : white;
+        width : 500px;
+        height : 300px;
+        position : absolute;
+        text-align : left;
+        overflow : auto;
+        resize : both;
+        border : 2px solid white;
+        left : 534px;
+        top : 320px;
+        `
+        document.getElementById("enemy_que").style = `
+        background-color : black;
+        color : white;
+        width : 500px;
+        height : 300px;
+        position : absolute;
+        text-align : left;
+        overflow : auto;
+        resize : both;
+        border : 2px solid white;
+        left : 533px;
+        top : 8px;
+    `
       }
     })
 
