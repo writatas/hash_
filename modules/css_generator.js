@@ -97,9 +97,9 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
             text_area : `
                 max-width:100%;
                 height:89%;
-                text-align:center;
+                text-align:left;
                 padding : 10px;
-                overflow:scroll;
+                overflow : scroll;
                 background-color:black;
                 border-top : 2px solid white;
                 `,
@@ -140,7 +140,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                     }
                     else
                     {
-                        spanEl.className = "invalid"
+                        spanEl.className = `invalid`
                         spanEl.innerText = `${val}\u00A0`
                         newHTML.push(spanEl)
                     }

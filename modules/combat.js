@@ -62,24 +62,23 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             {
                 const inv = player.inventory.filter(i => i.komponent_name[1] === act[1][1])[0]
                 const equip = player.equiped.filter(i => i.komponent_name[1] === act[1][3])[0]
-                
+                text_encounter("player",`Attach: ${act[1][1]} to component ${act[1][3]}!`)
+                //attach to component
                 equip !== undefined && inv !== undefined ? equip._attach = inv: "";
-
                 for (let i = 0; i < player.inventory.length; i++)
                 {
-                    console.log(player.inventory[i].komponent_name[1], i)
                     if (player.inventory[i].komponent_name[1] === "USED")
                     {
                         player.inventory.splice(i, 1)
                     }
                 }
-                //little Bug here
-                text_encounter("player",`You attached component ${act[1][1]} to component ${act[1][3]}!`)
+                
+                
             }
             else if (act[1][0] === "build") //using parts to build another Komponent which cna take attachments
             {
-                player.build()
-                text_encounter("player",`You built a new component!`)
+                const response = player.build()
+                text_encounter("player",`Build: ${response}`)
             }
             
           }

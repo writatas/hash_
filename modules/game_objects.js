@@ -75,9 +75,12 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                     const built_komponent = KOMPONENT("build", this.level, hp + 1)
                     this.equiped.push(built_komponent)
                     this.parts -= creation_cost
+                    return `${built_komponent.komponent_name[1]} was built successfully`
                 }
-                console.log(this.equiped)
-                
+                else
+                {
+                    return "build was unsuccessful"
+                }
             }
         }
     }
