@@ -15,6 +15,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
     const CSS = { //write the css so that it has a grid template layout proportional to the size of the window screen
         USER_NODE : {
             default: `
+                font-family : 'Press Start 2P', cursive;
                 border : 2px solid black;
                 background-color : black;
                 color : white;
@@ -32,12 +33,17 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                                 "b b b" auto
                                 "c c c"; auto
                 `,
-            weight:`font-size : 12 px; cursor : pointer;`,
-            name:`font-size : 12 px; cursor : pointer;`,
-            level:`font-size : 12 px; cursor : pointer;`,
-            parts:`font-size : 12 px; cursor : pointer;`,
+            weight:`cursor : pointer; text-align : center;`,
+            name:`cursor : pointer; text-align : center;`,
+            level:`cursor : pointer; text-align : center;`,
+            parts:`
+                cursor : pointer;
+                text-align : center;
+                border-bottom : 4px dotted white;
+                `,
             equiped_items:`
                 overflow : scroll;
+                display : inline;
                 `,
             inventory:`
                 border : 2px solid black;
@@ -51,6 +57,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
         },
         ENEMY_NODE : {
             default : `
+                font-family: 'Press Start 2P', cursive;
                 background-color : black;
                 color : white;
                 width : 500px;
@@ -65,7 +72,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
             `,
             enemy_header : `
                 cursor : pointer;   
-                padding-left : 10px; 
+                padding-left : 10px;
             `,
             enemy_info : `
                 max-width : 100%;
@@ -76,6 +83,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
         //if an invalid object occurs after key words, all text values are then grey
         USER_COMMANDS : {
             default: `
+                font-family: 'Press Start 2P', cursive;
                 background-color : black;
                 color : white;
                 width : 500px;

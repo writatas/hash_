@@ -50,7 +50,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
         player_info                 = document.createElement("div") , player_info.id = player.type + "header" //player info should be the draggable header as it will be at the top
         //weight
             weight                  = document.createElement("p") , weight.id = "weight"
-            weight.innerText        = `HP:${player.weight.equiped_weight} ¤ ATT:${player.weight.damage_modifier} ¤ INV:${player.weight.inventory_weight}`
+            weight.innerText        = `HP:${player.weight.equiped_weight} / ATT:${player.weight.damage_modifier} / INV:${player.weight.inventory_weight}`
         //name
             name                    = document.createElement("p") , name.id = "name"
             name.innerHTML          = player.hash_name
@@ -71,13 +71,6 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
         inventory_management        = document.createElement("div")
         //equiped items - f
             equiped_items           = document.createElement("div") , equiped_items.id = "equiped_items"
-            //equiped items per element in array structure
-            //type: [string]
-            //komponent_name: [array with two elements ('Name','hash')] - will use the second element for element type.
-            //weight: [number]
-            //attachments: [array]
-            //cost: [getter]
-            //_attach [setter]
         //inventory - f
             inventory               = document.createElement("div") , inventory.id = "inventory"
         //encounters -f
@@ -106,9 +99,8 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
                 {
                     let e_container, e_name, the_rest //e_name should change color based on the conditions gleaned from user commands
                     e_container = document.createElement('div') , e_container.id = `${enemy_que[e].name}`
-                    e_name = document.createElement('p') , e_name.innerText = enemy_que[e].name
-                    the_rest = document.createElement('p') , the_rest.innerText = `Health: ${enemy_que[e].health} Perception: ${enemy_que[e].perception}`
-                    e_container.append(e_name,the_rest)
+                    the_rest = document.createElement('p') , the_rest.innerText = `${enemy_que[e].name} > Health: ${enemy_que[e].health} Perception: ${enemy_que[e].perception}`
+                    e_container.appendChild(the_rest)
                     enemy_info.append(e_container)
                 }
             }
@@ -159,11 +151,10 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
             {
                 let txt_el          = document.createElement("p")
                 txt_el.id           = komponent_name[1] + "I"
-                txt_el.innerText    = `${type}--${komponent_name[1]} : weight-${weight}`
+                txt_el.innerText    = `${komponent_name[1]} K> weight-${weight}`
                 document.getElementById("inventory").appendChild(txt_el)
             }
         })
-        
             //equiped items
             const equiped_children = Object.values(document.getElementById("equiped_items").children)
             equiped_children.forEach(c => c.remove())
@@ -173,7 +164,7 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
                 equiped_children.forEach(c => c.remove())
                 let txt_el          = document.createElement("p")
                 txt_el.id           = komponent_name[1] + "E"
-                txt_el.innerText    = `${komponent_name[1]} : weight-${weight} : attachments: ${attachments.length}`
+                txt_el.innerText    = `${komponent_name[1]} E> weight-${weight} : attachments: ${attachments.length}`
                 document.getElementById("equiped_items").appendChild(txt_el)
             })
     }
@@ -192,13 +183,11 @@ const HTML_Generate_Objects = (...arr) => (function(...generate_array)
             if(!!current_enemies)
             {
                 const new_enemy = document.createElement('div')
-                const e_name = document.createElement('p')
                 const the_rest = document.createElement('p')
                 const {name,health,perception} = enemy_que[e]
                 new_enemy.id = name
-                e_name.innerText = name
-                the_rest.innerText = `Health: ${health} Perception: ${perception}`
-                new_enemy.append(e_name,the_rest)
+                the_rest.innerText = `${name} > Health: ${health} Perception: ${perception}`
+                new_enemy.appendChild(the_rest)
                 document.getElementById('enemy_info').appendChild(new_enemy)
             }
         }

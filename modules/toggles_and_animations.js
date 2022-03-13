@@ -6,10 +6,16 @@ const Draggable_Element = (el) =>(function(element)
     window.addEventListener("resize",()=>
     {
       let windowW = window.innerWidth
-      let windowH = window.innerHeight
+      //let windowH = window.innerHeight
       const element = document.getElementById(el)
       if (windowW < 1000)
       {
+        let encounters = document.getElementById("encounters") 
+        encounters.style = `
+        text-align : left;
+        border-top : 2px solid white;
+        height : 30px;
+        `
         element.style.width = `100%`
         element.style.left = `${1}px`
         element.style.top = `${6}px`
@@ -20,13 +26,18 @@ const Draggable_Element = (el) =>(function(element)
       }
       else
       {
-        let encounters_fixed = document.getElementById("encounters") 
+        let encounters = document.getElementById("encounters") 
+        encounters.style = `
+        overflow : scroll;
+        text-align : left;
+        border-top : 2px solid white;
+        `
 
         element.style.overflow = "none"
         element.style.position = "absolute"
-        encounters_fixed.style.overflow = "auto"
 
         document.getElementById("USER").style = `
+        font-family: 'Press Start 2P', cursive;
         border : 2px solid black;
         background-color : black;
         color : white;
@@ -45,6 +56,7 @@ const Draggable_Element = (el) =>(function(element)
                         "c c c"; auto
         `
         document.getElementById("USER_commands").style =  `
+        font-family: 'Press Start 2P', cursive;
         background-color : black;
         color : white;
         width : 500px;
@@ -58,6 +70,7 @@ const Draggable_Element = (el) =>(function(element)
         top : 320px;
         `
         document.getElementById("enemy_que").style = `
+        font-family: 'Press Start 2P', cursive;
         background-color : black;
         color : white;
         width : 500px;

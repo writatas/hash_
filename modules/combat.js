@@ -62,9 +62,9 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             {
                 const inv = player.inventory.filter(i => i.komponent_name[1] === act[1][1])[0]
                 const equip = player.equiped.filter(i => i.komponent_name[1] === act[1][3])[0]
-                text_encounter("player",`Attach: ${act[1][1]} to component ${act[1][3]}!`)
+
                 //attach to component
-                equip !== undefined && inv !== undefined ? equip._attach = inv: "";
+                equip !== undefined && inv !== undefined ? (equip._attach = inv, text_encounter("player",`Attach: ${act[1][1]} to component ${act[1][3]}!`)): "";
                 for (let i = 0; i < player.inventory.length; i++)
                 {
                     if (player.inventory[i].komponent_name[1] === "USED")

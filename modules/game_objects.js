@@ -160,7 +160,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
                 else
                 {
                     //updates via while loop in the logic script
-                    player._ouch = player.level
+                    player._ouch = player.level * this.perception
                 }
                 
             }
