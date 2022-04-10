@@ -135,21 +135,37 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
         text_area.style = CSS.USER_COMMANDS.text_area
         text_area.setAttribute('contenteditable','true') //make the html within the div editable
         text_area.addEventListener("keyup", (el)=>{ //Change color of text by its matches
-            if(el.keyCode === 32){
+            if(el.keyCode === 13){
                 let newHTML = []
-                let text_value = text_area.innerText.replace(/[\s]/g,' ').trim().split(' ')
+                let text_value = text_area.innerText.trim().split('\n')
                 text_value.forEach(val => {
+                    const targets = val.split(' ')
                     let spanEl = document.createElement('span')
-                    if(CSS.USER_COMMANDS.lint_values.indexOf(val.trim()) > -1)
+                    if(/attack [\w]{5}/.test(val))
                     {
-                        spanEl.className = val
-                        spanEl.innerText = `${val}\u00A0`
+                        spanEl.className = `attack`
+                        spanEl.innerText = `\n${val}`
+                        newHTML.push(spanEl)
+                        
+                        if(document.getElementById(targets[1]) !== null)
+                        {
+                            document.getElementById(targets[1]).style.color = "red"
+                        }
+                        else
+                        {
+                            spanEl.remove()
+                        }
+                    }
+                    else if(/attach [\w]{5} to [\w]{5}/.test(val))
+                    {
+                        spanEl.className = 'attach'
+                        spanEl.innerText = `\n${val}`
                         newHTML.push(spanEl)
                     }
-                    else
+                    else if(/build/.test(val))
                     {
-                        spanEl.className = `invalid`
-                        spanEl.innerText = `${val}\u00A0`
+                        spanEl.className = 'build'
+                        spanEl.innerText = `\n${val}`
                         newHTML.push(spanEl)
                     }
                 })
@@ -157,15 +173,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                 newHTML.forEach(el => {
                     text_area.appendChild(el)
                 })
-                //set cursor position to the end of the text
-                let child = text_area.children
-                let range = document.createRange()
-                let sel = window.getSelection()
-                range.setStart(child[child.length-1],1)
-                range.collapse(true)
-                sel.removeAllRanges()
-                sel.addRange(range)
-                text_area.focus()
             }
         })
 

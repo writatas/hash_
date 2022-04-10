@@ -4,12 +4,12 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
     p = player
     e = enemies
     a = action_que
-    
     //read the player's commands and then compare the overall perception of enemies to player weight to see who goes first
     //If the player's weight is smaller than the combined perception of the enemies, then the enemys will get to attack first
-    const regex = /(attack\u00A0[\w]{5}|attach\u00A0[\w]{5}\u00A0to\u00A0[\w]{5}|build)/gm
+    const regex = /(attack [\w]{5}|attach [\w]{5} to [\w]{5}|build)/gm
     const commands = document.getElementById('usr_input').innerText
     const matches = commands.match(regex)
+    console.log(matches)
     const matches_len = matches !== null ? matches.length : 0
 
     const enemy_length = enemies.length
@@ -32,7 +32,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
         }
         for (let m = 0; m < matches_len; m++)
         {
-            action_que.enqueue(["player_move", matches[m].split(/\u00A0/), player_hp - Math.abs(player_hp / 2)])
+            action_que.enqueue(["player_move", matches[m].split(/ /), player_hp - Math.abs(player_hp / 2)])
         }
     }
     else
@@ -47,12 +47,14 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
           }
           else if (act[0] === "player_move")
           {
-            if(act[1][0] === "attack")
+            if(act[1][0].trim() === "attack")
             {
                 for (let e = 0; e < enemies.length;e++)
                 {
                     if (enemies[e].name === act[1][1])
                     {
+                        //for seeing that player commands are being read
+                        console.log(enemies[e])
                         player.attack(enemies[e])
                         text_encounter("player", `You attacked the enemy ${enemies[e].name}`)
                     }
