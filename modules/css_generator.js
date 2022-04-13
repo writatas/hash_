@@ -144,6 +144,7 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                     if(/attack [\w]{5}/.test(val))
                     {
                         spanEl.className = `attack`
+                        spanEl.id = `att_${val.split(' ')[1]}`
                         spanEl.innerText = `\n${val}`
                         newHTML.push(spanEl)
                         
@@ -158,13 +159,14 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
                     }
                     else if(/attach [\w]{5} to [\w]{5}/.test(val))
                     {
-                        spanEl.className = 'attach'
+                        spanEl.className = `attach`
+                        spanEl.id = `a_${val.split(' ')[3]}`
                         spanEl.innerText = `\n${val}`
                         newHTML.push(spanEl)
                     }
                     else if(/build/.test(val))
                     {
-                        spanEl.className = 'build'
+                        spanEl.className = `build`
                         spanEl.innerText = `\n${val}`
                         newHTML.push(spanEl)
                     }

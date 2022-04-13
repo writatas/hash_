@@ -4,6 +4,17 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
     p = player
     e = enemies
     a = action_que
+
+    const delete_spent_command = (id) => {
+        if (document.getElementById(id) !== null)
+        {
+            document.getElementById(id).remove()
+        }
+        else if (id === 'build')
+        {
+            document.getElementsByClassName('build')[0].remove()
+        }
+    }
     //read the player's commands and then compare the overall perception of enemies to player weight to see who goes first
     //If the player's weight is smaller than the combined perception of the enemies, then the enemys will get to attack first
     const regex = /(attack [\w]{5}|attach [\w]{5} to [\w]{5}|build)/gm
@@ -53,10 +64,10 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
                 {
                     if (enemies[e].name === act[1][1])
                     {
-                        //for seeing that player commands are being read
-                        console.log(enemies[e])
                         player.attack(enemies[e])
+                        //if present in the user's command line, remove it
                         text_encounter("player", `You attacked the enemy ${enemies[e].name}`)
+                        if (enemies[e].health <= 0) delete_spent_command(`att_${enemies[e].name}`)
                     }
                 }
             }
@@ -75,6 +86,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
                     {
                         player.inventory.splice(i, 1)
                         text_encounter("player",`Attach: ${act[1][1]} to component ${act[1][3]}!`)
+                        delete_spent_command(`a_${act[1][3]}`)
                     }
                 }
                 
@@ -84,6 +96,7 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             {
                 const response = player.build()
                 text_encounter("player",`Build: ${response}`)
+                delete_spent_command("build")
             }
             
           }
