@@ -6,14 +6,11 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
     a = action_que
 
     const delete_spent_command = (id) => {
-        if (document.getElementById(id) !== null)
+        if (document.getElementById(id) !== null || document.getElementById(id) !== undefined)
         {
             document.getElementById(id).remove()
         }
-        else if (id === 'build')
-        {
-            document.getElementsByClassName('build')[0].remove()
-        }
+        
     }
     //read the player's commands and then compare the overall perception of enemies to player weight to see who goes first
     //If the player's weight is smaller than the combined perception of the enemies, then the enemys will get to attack first
@@ -96,7 +93,6 @@ const Combat = (p, e, a) => (function(player, enemies, action_que)
             {
                 const response = player.build()
                 text_encounter("player",`Build: ${response}`)
-                delete_spent_command("build")
             }
             
           }

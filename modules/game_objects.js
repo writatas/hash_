@@ -2,7 +2,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
 {
     let level = starting_level
     let hero = hero_name //private variable
-    const USER = () =>{
+    const USER = () => {
         return {
             level       : 1,
             name        : hero_name,
