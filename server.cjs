@@ -14,6 +14,9 @@ app.use('/modules',express.static(__dirname + '/modules'))
 app.use('/Public',express.static(__dirname + '/Public'))
 
 app.get('/',(req,res)=>{
+    res.sendFile(__dirname + '/views/intro_hash.html')
+})
+app.get('/hash.html', (req, res) => {
     res.sendFile(__dirname + '/views/hash.html')
 })
 

@@ -15,7 +15,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
     const CSS = { //write the css so that it has a grid template layout proportional to the size of the window screen
         USER_NODE : {
             default: `
-                font-family : 'Press Start 2P', cursive;
                 border : 2px solid black;
                 background-color : black;
                 color : white;
@@ -57,7 +56,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
         },
         ENEMY_NODE : {
             default : `
-                font-family: 'Press Start 2P', cursive;
                 background-color : black;
                 color : white;
                 width : 500px;
@@ -83,7 +81,6 @@ const CSS_Generate = (...arr)=> (function(...cssArr)
         //if an invalid object occurs after key words, all text values are then grey
         USER_COMMANDS : {
             default: `
-                font-family: 'Press Start 2P', cursive;
                 background-color : black;
                 color : white;
                 width : 500px;
