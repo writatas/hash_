@@ -1,13 +1,43 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible" content="ie=edge'>
     <title>Hash_rpg</title>
+    <style>
+      body
+      {
+        width:100%;
+        height:100%;
+        background-color: black;
+      }
+      canvas {
+        background-color: black;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
   </head>
   <body>
-    <a href = "hash.html">This is the intro page</a>
+    <canvas id='loading_bar'></canvas>
   </body>
+  <script>
+    //fake loading bar
+    let lb = document.getElementById('loading_bar')
+    let bar = {
+      width : 0,
+      height : 5
+    }
+    
+    let ctx = lb.getContext('2d')
+    ctx.fillStyle = 'white'
+ 
+    let bar_anim = setInterval(()=>{
+      ctx.fillRect(lb.width / 2 - bar.width / 2, lb.height / 2 - bar.height / 2, bar.width, bar.height)
+      bar.width += .5
+    },100)
+
+  </script>
 </html>
