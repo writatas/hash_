@@ -6,7 +6,8 @@ const apiLimiter = rateLimit({
     windowMS: 15 * 60 * 1000, //15 minutes
     max: 10, // Limit each IP to 10 requests per `window` (here, per 15 minutes)
     standartHeaders:true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders:false // Disable the `X-RateLimit-*` headers
+    legacyHeaders:false, // Disable the `X-RateLimit-*` headers
+    message : '<p style="color:red; font-size:30px;">HAAH! HAAH! You lose! (Too many requests)</p>'
 })
 //use the limiter on all endpoints
 app.use('/',apiLimiter)

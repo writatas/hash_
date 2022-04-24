@@ -7,6 +7,7 @@
     <meta http-equiv='X-UA-Compatible" content="ie=edge'>
     <title>Hash_rpg</title>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
       body
       {
         width:100%;
@@ -24,20 +25,49 @@
     <canvas id='loading_bar'></canvas>
   </body>
   <script>
+    const shifting_characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ$#'
+    const growth_speed = (s) =>
+    {
+      return Math.pow(s,Math.E)
+    }
+    const get_random_char = function* (n)
+    {
+      let hash = ""
+      for (let i = 0; i < n; i++)
+      {
+        hash += shifting_characters[Math.floor(Math.random() * shifting_characters.length)]
+      }
+      yield hash
+    }
     //fake loading bar
     let lb = document.getElementById('loading_bar')
     let bar = {
       width : 0,
-      height : 5
+      height : .5,
+      opcacity : 0
     }
     
     let ctx = lb.getContext('2d')
+    let chars
     ctx.fillStyle = 'white'
- 
-    let bar_anim = setInterval(()=>{
+    
+    //Animating the rectangle Loading bar
+    let bar_anim_width = setInterval(()=>{
       ctx.fillRect(lb.width / 2 - bar.width / 2, lb.height / 2 - bar.height / 2, bar.width, bar.height)
-      bar.width += .5
-    },100)
+      bar.opcacity += growth_speed(.2)
+      ctx.globalAlpha = bar.opcacity
+      bar.width += growth_speed(.8)
+      chars = get_random_char(4)
+      let hash = chars.next().value
+      ctx.font = "20px Helvetica"
+      ctx.clearRect( lb.width / 2 - 50, lb.height / 2 - 45, 200, 40)
+      ctx.fillText(`${hash}`, lb.width / 2 - 28, lb.height / 2 - 20)
+      if (bar.width >= 110 && bar.opcacity > 1)
+      {
+        clearInterval(bar_anim_width)
+      }
+      
+    },10)
 
   </script>
 </html>
