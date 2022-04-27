@@ -259,18 +259,13 @@ const Draggable_Element = (el) =>(function(element)
       
 })(el)
 
-//Animate background color depending on what happens to the player
 const Animate = {
   clock : function(c_time)
   {
-    let new_rgb = c_time - 50
-    if(new_rgb > 0)
+    let new_rgb = 301 - c_time
+    if(new_rgb < 300)
     {
-      document.body.style.backgroundColor = `rgb(${new_rgb},${new_rgb},${new_rgb})`
-    }
-    else
-    {
-      document.body.style.backgroundColor = `black;`
+      document.body.style.backgroundColor = `rgb(${new_rgb - 1},${new_rgb - 1},${new_rgb - 1})`
     }
   }
 }

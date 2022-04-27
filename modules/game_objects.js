@@ -67,7 +67,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             build : function () //build a new named component with parts
             {
                 const can_component = this.equiped.length < 6 + this.level ? true : false
-                const creation_cost = Math.floor(this.parts / 2) * this.level
+                const creation_cost = Math.floor(this.equiped.length) * this.level
 
                 if (can_component && this.parts - creation_cost > 0) // if 0
                 {
@@ -108,7 +108,7 @@ const Game = (hero,level) => (function(hero_name,starting_level)
             attachments     : [],
             get cost ()
             {
-                return this.weight * 10
+                return this.weight * 1.5
             },
             set _attach(K)
             {
