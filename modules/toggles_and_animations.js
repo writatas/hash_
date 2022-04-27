@@ -3,6 +3,17 @@ const Draggable_Element = (el) =>(function(element)
 {
     el = element
     //iife to set width to 100% on open is window size is below a certain width
+    const user_agent = navigator.userAgent.toLowerCase()
+    const ismobile = (usr) =>
+    {
+      if (usr.includes('mobi') || usr.includes('tablet'))
+      {
+        return true
+      }
+      return false
+    }
+
+    if (!ismobile(user_agent)){
     window.addEventListener("load", () => {
       let windowW = window.innerWidth
       //let windowH = window.innerHeight
@@ -179,7 +190,23 @@ const Draggable_Element = (el) =>(function(element)
         document.getElementById('enemy_info').style.fontSize = '15px'
       }
     })
+    }
+    else
+    {
+      let encounters = document.getElementById("encounters") 
+        encounters.style = `
+        text-align : left;
+        border-top : 2px solid white;
+        height : 30px;
+        `
+        element.style.width = `100%`
+        element.style.left = `${1}px`
+        element.style.top = `${6}px`
 
+        element.style.position = "relative"
+        element.style.overflow = "auto"
+        element.style.height = `${33.3}%`
+    }
     function dragElement(elmnt) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         const dragMouseDown = (e) =>
