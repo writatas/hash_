@@ -13,101 +13,11 @@ const Draggable_Element = (el) =>(function(element)
       return false
     }
 
-    if (!ismobile(user_agent)){
-    window.addEventListener("load", () => {
-      let windowW = window.innerWidth
-      //let windowH = window.innerHeight
-      const element = document.getElementById(el)
-      if (windowW < 1000)
-      {
-        let encounters = document.getElementById("encounters") 
-        encounters.style = `
-        text-align : left;
-        border-top : 2px solid white;
-        height : 30px;
-        `
-        element.style.width = `100%`
-        element.style.left = `${1}px`
-        element.style.top = `${6}px`
-
-        element.style.position = "relative"
-        element.style.overflow = "auto"
-        element.style.height = `${33.3}%`
-      }
-      else
-      {
-        let encounters = document.getElementById("encounters") 
-        encounters.style = `
-        overflow : scroll;
-        text-align : left;
-        border-top : 2px solid white;
-        `
-
-        element.style.overflow = "none"
-        element.style.position = "absolute"
-
-        document.getElementById("USER").style = `
-        font-family: 'Roboto Mono', monospace;
-        font-size: 20px;
-        border : 2px solid black;
-        background-color : black;
-        color : white;
-        width : 508px;
-        height : 598px;
-        padding : 10px;
-        position : absolute;
-        overflow : auto;
-        left : 1px;
-        top : 6px;
-        resize : both;
-        border : 2px solid white;
-        grid-template:
-                        "a a a" auto
-                        "b b b" auto
-                        "c c c"; auto
-        `
-        document.getElementById('equiped_items').style.fontSize = '15px'
-        document.getElementById('inventory').style.fontSize = '15px'
-
-        document.getElementById("USER_commands").style =  `
-        font-family: 'Roboto Mono', monospace;
-        font-size: 15px;;
-        background-color : black;
-        color : white;
-        width : 500px;
-        height : 300px;
-        position : absolute;
-        text-align : left;
-        overflow : auto;
-        resize : both;
-        border : 2px solid white;
-        left : 534px;
-        top : 320px;
-        `
-        document.getElementById('USER_commandsheader').style.fontSize = '20px'
-        document.getElementById("enemy_que").style = `
-        font-family: 'Roboto Mono', monospace;
-        font-size: 20px;
-        background-color : black;
-        color : white;
-        width : 500px;
-        height : 300px;
-        position : absolute;
-        text-align : left;
-        overflow : auto;
-        resize : both;
-        border : 2px solid white;
-        left : 533px;
-        top : 8px;
-        `
-        document.getElementById('enemy_info').style.fontSize = '15px'
-      }
-    })
     window.addEventListener("resize", () => {
       let windowW = window.innerWidth
       //let windowH = window.innerHeight
       const element = document.getElementById(el)
-      if (windowW < 1000)
+      if (windowW < 1000 || user_agent)
       {
         let encounters = document.getElementById("encounters") 
         encounters.style = `
@@ -134,6 +44,7 @@ const Draggable_Element = (el) =>(function(element)
 
         element.style.overflow = "none"
         element.style.position = "absolute"
+
         document.getElementById("USER").style = `
         font-family: 'Roboto Mono', monospace;
         font-size: 20px;
@@ -156,6 +67,7 @@ const Draggable_Element = (el) =>(function(element)
         `
         document.getElementById('equiped_items').style.fontSize = '15px'
         document.getElementById('inventory').style.fontSize = '15px'
+
         document.getElementById("USER_commands").style =  `
         font-family: 'Roboto Mono', monospace;
         font-size: 15px;;
@@ -190,23 +102,7 @@ const Draggable_Element = (el) =>(function(element)
         document.getElementById('enemy_info').style.fontSize = '15px'
       }
     })
-    }
-    else
-    {
-      let encounters = document.getElementById("encounters") 
-        encounters.style = `
-        text-align : left;
-        border-top : 2px solid white;
-        height : 30px;
-        `
-        element.style.width = `100%`
-        element.style.left = `${1}px`
-        element.style.top = `${6}px`
 
-        element.style.position = "relative"
-        element.style.overflow = "auto"
-        element.style.height = `${33.3}%`
-    }
     function dragElement(elmnt) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         const dragMouseDown = (e) =>
